@@ -1,0 +1,559 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>OpenFin API Demos</title>
+
+		<link rel="stylesheet" href="bower_components/reveal.js/css/reveal.css">
+		<link rel="stylesheet" href="bower_components/reveal.js/css/theme/white.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="bower_components/reveal.js/lib/css/zenburn.css">
+    <style>
+      .img-bar {
+        height:300px;
+        width:900px;
+        text-align:center;
+        vertical-align:middle !important;
+        background:white;
+
+      }
+      .img-bar img{
+        margin-left:20px !important;
+        margin-right:20px !important;
+          box-shadow:none !important;
+      }
+
+			.container {
+				height:32px;
+				background:white;
+		    }
+		    .container:active {
+		        cursor: -webkit-grabbing !important;
+		    }
+
+		    .btn {
+		  /*  padding: 3px;*/
+		    margin-right: 0px;
+		    font-weight: bold;
+		    cursor: pointer;
+		    transition: all .4s ease-in
+		}
+		.btn:hover {
+		    background-color: #CBCBCB;
+		  /*  border: 1px solid #333434;*/
+		}
+		.close.btn:hover {
+			background-color:#E33;
+		}
+		.btn:active {
+		    background-color: #CBCBCB;
+		/*    border: 1px solid #333434;
+		    box-shadow: inset 0 1px rgba(255,255,255,0.36), 0 0 0 2px #6fb5f1;*/
+		    outline: 0;
+		}
+		.top-btn {
+		    position: absolute;
+		  /*  border-radius: 20px;*/
+		    margin: 0px;
+		    line-height: 10px;
+		  /*  top: 5px;*/
+		  /*  padding: 1px 4px 3px 4px;*/
+		    -webkit-app-region: no-drag;
+		}
+
+		.close {
+		    right: 0px;
+		}
+
+		.maximize {
+		    right: 27px;
+		}
+
+		.minimize {
+		    right: 53px;
+		}
+
+		.minimize-bar {
+		    background: #2D2D2D;
+		    width: 8px;
+		    height: 2px;
+		    display: inline-block;
+		    border-radius: 20px;
+		    vertical-align: middle;
+		}
+
+		.demo-button {
+			background:#fff;
+			text-transform: uppercase;
+			font-size:24px;
+			border-style:solid;
+			border-color:#333;
+		}
+
+    </style>
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="container of-draggable">
+
+	        <!--<div id="about-app" class="btn top-btn about"><img src="img/tools/question-mark.png"></div>-->
+	        <div id="minimize-window" class="btn top-btn minimize"><img src="img/min.png"></div>
+	        <div id="maximize-window" class="btn top-btn maximize"><img id="size-icon" src="img/rest.png"></div>
+	        <div id="close-app" class="btn top-btn close"><img src="img/close.png"></div>
+	  </div>
+
+		<div class="reveal">
+			<div class="slides">
+				<section style="background:white;">
+					<img src="img/openfin-logo.png" style="border:0;box-shadow:0 0 0px;">
+            <div style="padding-top:100px;font-size:48px;text-align:center;width=100%">
+							API Demos
+						</div>
+						<div style="font-size:32px;width=100%;text-align:center;">
+							www.openfin.co | @openfintech
+						</div>
+
+        </section>
+				<section>
+					<section>
+							<h1>Windowing</h1>
+
+					</section>
+					<section>
+							<h2>New Window</h2>
+							<pre><code class="hljs new-win" contenteditable>
+let childWindow = new fin.desktop.Window({
+    name: "childWindow",
+    url: "child.html",
+    defaultWidth: 320,
+    defaultHeight: 320,
+    defaultTop: 10,
+    defaultLeft: 300,
+    frame: true,
+    resize: false,
+    windowState: "normal",
+    autoShow: true
+}, function () {
+    console.log("The window has successfully been created");
+}, function () {
+    console.log("Error creating window");
+});
+</pre></code>
+							<button id="new-win" class="demo-button">run demo</button>
+					</section>
+	<!--				<section>
+							<h2>Window Configuration</h2>
+							<pre><code class="hljs"></pre></code>
+							<button class="demo-button">run demo</button>
+					</section>-->
+
+
+					<section>
+							<h2>Injecting Content</h2>
+							<pre><code class="inject-content hljs" contenteditable>
+let header = document.createElement("h1");
+header.innerText = "Hello World";
+
+let childWindow = new fin.desktop.Window({
+    name: "childWindow",
+    url: "child.html",
+    defaultWidth: 320,
+    defaultHeight: 320,
+    defaultTop: 10,
+    defaultLeft: 300,
+    frame: true,
+    resize: false,
+    windowState: "normal",
+    autoShow: true
+}, function () {
+    console.log("The window has successfully been created");
+		let win = childWindow.getNativeWindow();
+		win.document.body.appendChild(header);
+}, function () {
+    console.log("Error creating window");
+});
+
+							</pre></code>
+							<button id="inject-content" class="demo-button">run demo</button>
+					</section>
+					<section>
+							<h2>Child Window Interaction</h2>
+							<pre><code class="win-interact hljs" contenteditable>
+
+let injectscript = document.createElement("script");
+let scrpt = `
+let pWin = fin.desktop.Window.getCurrent().getParentWindow();
+pWin.hide();`;
+injectscript.innerText = scrpt;
+let showBut = document.createElement("button");
+showBut.innerText = "show parent";
+
+let childWindow = new fin.desktop.Window({
+    name: "childWindow",
+    url: "child.html",
+    defaultWidth: 320,
+    defaultHeight: 320,
+    defaultTop: 10,
+    defaultLeft: 300,
+    frame: true,
+    resize: false,
+    windowState: "normal",
+    autoShow: true
+}, function () {
+    console.log("The window has successfully been created");
+		let win = childWindow.getNativeWindow();
+		win.document.body.appendChild(injectscript);
+		win.document.body.appendChild(showBut);
+		showBut.addEventListener("click",function(){fin.desktop.Window.getCurrent().getParentWindow().show();});
+}, function () {
+    console.log("Error creating window");
+});
+							</code></pre>
+							<button id="win-interact" class="demo-button">run demo</button>
+					</section>
+					<section>
+							<h2>Animating Windows</h2>
+							<pre><code class="hljs win-animate" contenteditable>
+let childWindow = new fin.desktop.Window({
+    name: "childWindow",
+    url: "child.html",
+    defaultWidth: 320,
+    defaultHeight: 320,
+    defaultTop: 10,
+    defaultLeft: 300,
+    frame: false,
+    resize: false,
+    windowState: "normal",
+    autoShow: true,
+		opacity:0
+}, function () {
+    console.log("The window has successfully been created");
+		let win = childWindow;
+		win.animate({
+			opacity:{
+				opacity:1,
+				duration:1000
+			}},
+			{
+				interrupt:false
+			},
+			function(evt){
+				console.log("Window opacity animation complete");
+				win.animate({
+					position:{
+						left:10,
+						top:10,
+						duration:1000
+					},
+					size:{
+						width:500,
+						height:500,
+						duration:1000
+					}
+				},
+					{
+						interrupt:false
+					},
+					function(evt){
+							console.log("Window position and size animation complete");
+					}
+				);
+		});
+}, function () {
+    console.log("Error creating window");
+});
+</code></pre>
+							<button class="demo-button" id="win-animate">run demo</button>
+					</section>
+					<section>
+							<h2>Tear-outs</h2>
+							<div class="tearout" draggable>Tear this Content out into a new Window!</div>
+							<pre><code class="hljs demo-tearout" contenteditable>
+var tearoutWindow = new fin.desktop.Window({
+	name: "tearout_" + Date.now(),
+	url:"http://localhost:5000/tearout.html",
+	frame:false,
+	autoShow:false,
+	"defaultHeight": 150,
+	"defaultWidth": 500}, function () {
+		},function(err){
+});
+
+document.querySelector(".tearout").addEventListener("dragend",function(event){
+	var tearout = tearoutWindow.getNativeWindow();
+	tearout.document.getElementById("content").innerText = event.target.textContent;
+	tearoutWindow.moveTo(event.screenX, event.screenY);
+	tearoutWindow.show();
+});
+
+							</code></pre>
+							<button class="demo-button" id="demo-tearout">run demo</button>
+					</section>
+					<section>
+							<h2>Docking</h2>
+							<pre><code class="hljs"></code></pre>
+							<button class="demo-button">run demo</button>
+					</section>
+				</section>
+
+				<!-- System Demos -->
+				<section>
+					<section>
+						<h1>System</h1>
+					</section>
+					<section>
+							<h2>Screen Info</h2>
+							<pre><code class="hljs system-monitor" contenteditable>
+fin.desktop.System.getMonitorInfo(function (monitorInfo) {
+    console.log("This object contains information about all monitors: ", monitorInfo);
+		document.getElementById("monitorInfo").innerHTML = JSON.stringify(monitorInfo);
+		 hljs.highlightBlock(document.getElementById("monitorInfo"));
+});
+							</code></pre>
+							<button class="demo-button" id="system-monitor">run demo</button>
+							<pre><code class="hljs" id="monitorInfo" contenteditable>
+							</code></pre>
+					</section>
+					<section>
+							<h2>System Info</h2>
+							<pre><code class="hljs system-process" contenteditable>
+fin.desktop.System.getProcessList(function (list) {
+    list.forEach(function (process) {
+        console.log("UUID: " + process.uuid + ", Application Name: " + process.name);
+				document.getElementById("processInfo").innerHTML += JSON.stringify(process);
+				 hljs.highlightBlock(document.getElementById("processInfo"));
+    });
+});
+							</code></pre>
+							<button class="demo-button" id="system-process">run demo</button>
+							<pre><code class="hljs" id="processInfo" contenteditable></code></pre>
+					</section>
+					<section>
+							<h2>Launching an External Process</h2>
+							<pre><code class="hljs"></code></pre>
+							<button class="demo-button">run demo</button>
+					</section>
+					<section>
+							<h2>Logging</h2>
+							<pre><code class="hljs system-log" contenteditable>
+fin.desktop.System.log("info",
+  "An example log message",
+  function () {
+      console.log("message successfully logged");
+  }, function(err) {
+      console.log(err);
+});
+							</code></pre>
+							<button class="demo-button" id="system-log">run demo</button>
+					</section>
+					<section>
+							<h2>Clipboard Access</h2>
+							<pre><code class="hljs system-clip">
+fin.desktop.System.setClipboard("monitor-info-changed", function () {
+  console.log("successful");
+},function (err) {
+  console.log("failure: " + err);
+});
+							</code></pre>
+							<button class="demo-button" id="system-clip">run demo</button>
+					</section>
+			</section>
+			<!-- end System Demos -->
+
+			<!-- Application Demos -->
+			<section>
+				<section>
+					<h1>Application</h1>
+				</section>
+				<section>
+						<h2>Launching an Application</h2>
+						<pre><code class="hljs app-launch" contenteditable>
+var app = new fin.desktop.Application({
+    url: "http://demoappdirectory.openf.in/desktop/config/apps/OpenFin/HelloOpenFin/index.html",
+    uuid: "foo-88",
+    applicationIcon: "http://demoappdirectory.openf.in/desktop/config/apps/OpenFin/HelloOpenFin/img/openfin.ico",
+    name: "HelloOpenFin",
+    mainWindowOptions: {
+        defaultHeight: 600,
+        defaultWidth: 800,
+        defaultTop: 300,
+        defaultLeft: 300,
+        autoShow: true
+    }
+}, function () {
+    console.log("Application successfully created");
+    app.run();
+}, function () {
+    console.log("Error creating application");
+});
+						</code></pre>
+						<button class="demo-button" id="app-launch">run demo</button>
+				</section>
+				<section>
+						<h2>Managing Child Applications</h2>
+						<pre><code class="hljs app-manage">
+var app = new fin.desktop.Application({
+    url: "http://demoappdirectory.openf.in/desktop/config/apps/OpenFin/HelloOpenFin/index.html",
+    uuid: "foo-88",
+    applicationIcon: "http://demoappdirectory.openf.in/desktop/config/apps/OpenFin/HelloOpenFin/img/openfin.ico",
+    name: "HelloOpenFin",
+    mainWindowOptions: {
+        defaultHeight: 600,
+        defaultWidth: 800,
+        defaultTop: 300,
+        defaultLeft: 300,
+        autoShow: true
+    }
+}, function () {
+    console.log("Application successfully created");
+    app.run();
+}, function () {
+    console.log("Error creating application");
+});
+application.close();
+						</code></pre>
+						<button class="demo-button" id="app-manage">run demo</button>
+				</section>
+				<section>
+						<h2>Restarting</h2>
+						<pre><code class="hljs app-restart" contenteditable>
+var app = new fin.desktop.Application({
+    url: "http://demoappdirectory.openf.in/desktop/config/apps/OpenFin/HelloOpenFin/index.html",
+    uuid: "foo-88",
+    applicationIcon: "http://demoappdirectory.openf.in/desktop/config/apps/OpenFin/HelloOpenFin/img/openfin.ico",
+    name: "HelloOpenFin",
+    mainWindowOptions: {
+        defaultHeight: 600,
+        defaultWidth: 800,
+        defaultTop: 300,
+        defaultLeft: 300,
+        autoShow: true
+    }
+}, function () {
+    app.run();
+
+}, function () {
+    console.log("Error creating application");
+});
+document.getElementById("app-restartbutton").addEventListener("click",function(){
+	app.restart(function () {
+			console.log("You will not read this.");
+	}, function (err) {
+			console.log("failure:", err);
+	});
+});
+						</code></pre>
+						<button class="demo-button" id="app-restart">run demo</button>
+						<button class="demo-button" id="app-restartbutton">restart app</button>
+				</section>
+			</section>
+			<!-- end Application Demos -->
+
+			<!-- Notification Demos -->
+			<section>
+				<section>
+					<h1>Notifications</h1>
+				</section>
+				<section>
+						<h2>Creating Desktop Notifications</h2>
+						<pre><code class="hljs noti-create" contenteditable>
+var notification = fin.desktop.Notification({
+    url: "notification.html",
+    onShow: function () {
+        notification.sendMessage("This is a notification message");
+    }
+});
+						</code></pre>
+						<button class="demo-button" id="noti-create">run demo</button>
+				</section>
+				<section>
+						<h2>Notification Callbacks</h2>
+						<pre><code class="hljs noti-callback" contenteditable>
+let callback = function(){
+	notification.sendMessage("Your notification was clicked");
+};
+
+var notification = fin.desktop.Notification({
+    url: "notification.html",
+    onShow: function () {
+        notification.sendMessage("This is a notification message",callback);
+    }
+});
+</code></pre>
+						<button class="demo-button" id="noti-callback">run demo</button>
+				</section>
+			</section>
+			<!-- end Notification Demos -->
+
+			<!-- Inter-App Bus Demos -->
+			<section>
+				<section>
+					<h1>Inter-App Bus</h1>
+				</section>
+				<section>
+						<h2>Topic Messages</h2>
+						<pre><code class="hljs bus-topic" contenteditable>
+let callback = function(msg){
+	document.getElementById("bus-topic-msg").innerHTML += JSON.stringify(msg);
+	hljs.highlightBlock(document.getElementById("bus-topic-msg"));
+};
+
+
+fin.desktop.InterApplicationBus.subscribe("*","a topic",callback);
+fin.desktop.InterApplicationBus.publish("a topic", {
+  field1: "value1",
+  field2: "value2"
+});
+
+fin.desktop.InterApplicationBus.unsubscribe("*","a topic", callback);	
+						</code></pre>
+						<button class="demo-button" id="bus-topic">run demo</button>
+						<pre><code class="hljs" id="bus-topic-msg" contenteditable></code></pre>
+				</section>
+				<section>
+						<h2>Direct Messages</h2>
+						<pre><code class="hljs bus-direct" contenteditable>
+
+						</code></pre>
+						<button class="demo-button" id="bus-direct">run demo</button>
+						<pre><code class="hljs" id="bus-direct-msg" contenteditable>
+						</code></pre>
+				</section>
+			</section>
+			<!-- end Inter-App Bus Demos  -->
+
+  	<script src="bower_components/d3/d3.js" charset="utf-8"></script>
+		<script src="js/utils.js"></script>
+		<script src="js/cpu-charts.js"></script>
+		<script src="js/animations.js"></script>
+		<script src="js/slideFunctions.js"></script>
+		<script src="bower_components/reveal.js/lib/js/head.min.js"></script>
+		<script src="bower_components/reveal.js/js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'bower_components/reveal.js/plugin/markdown/marked.js' },
+					{ src: 'bower_components/reveal.js/plugin/markdown/markdown.js' },
+					{ src: 'bower_components/reveal.js/plugin/notes/notes.js', async: true },
+					{ src: 'bower_components/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Notifications</title>
+        <meta name="description" content="OpenFin Hello World">
+        <style>
+        body {
+          font-family: Helvetica, sans-serif;
+        }
+        #notification-text {
+          font-weight: bold;
+        }
+      #time-text {
+            margin-top: 5px;
+            color:#4F8ABA;
+            font-size: 12px;
+        }
+      /*  .notification-body h3 {
+            margin-bottom: -5px;
+        }*/
+        </style>
+    </head>
+    <body>
+        <div class="notification-body">
+            <div id="notification-text"></div>
+            <div id="time-text"></div>
+        </div>
+        <script type="text/javascript">
+            // messages received from the application creating the application
+            function onNotificationMessage(message) {
+                var date = new Date();
+                document.querySelectorAll('#notification-text')[0].innerHTML = message;
+                document.querySelectorAll('#time-text')[0].innerHTML = new Date().toLocaleString();
+            }
+            fin.desktop.main();
+        </script>
+    </body>
+</html>

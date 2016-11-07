@@ -1,0 +1,19 @@
+{
+    "devtools_port": 9090,
+    "startup_app": {
+        "name": "OpenFinIntroduction",
+        "description": "OpenFin Introduction Demo",
+        "url": "http://openfin.co",
+        "uuid": "OpenfinIntroduction",
+        "autoShow": true
+    },
+    "runtime": {
+        "arguments": "",
+        "version": "6.49.12.108"
+    },
+    "shortcut": {
+        "company": "OpenFin",
+        "description": "Openfin Introduction",
+        "name": "Openfin Introduction"
+    }
+}
