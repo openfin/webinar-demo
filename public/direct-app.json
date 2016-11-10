@@ -1,0 +1,25 @@
+{
+    "devtools_port": 9090,
+    "startup_app": {
+        "name": "OpenFin Introduction",
+        "description": "OpenFin POC",
+        "url": "http://localhost:5000/index-direct.html",
+        "uuid": "OpenFin Introduction-f56rghj5drou5wmi",
+        "autoShow": false,
+        "defaultCentered": true,
+        "applicationIcon": "http://localhost:5000/img/openfin.ico",
+        "frame": false,
+        "defaultHeight": 300,
+        "defaultWidth": 300
+    },
+    "runtime": {
+        "arguments": "",
+        "version": "beta"
+    },
+    "shortcut": {
+        "company": "OpenFin",
+        "description": "Openfin POC",
+        "name": "Openfin POC",
+        "icon": "http://localhost:5000/img/openfin.ico"
+    }
+}

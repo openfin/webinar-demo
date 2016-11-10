@@ -1,0 +1,16 @@
+<script>
+
+var application = fin.desktop.Application.getCurrent();
+
+application.getParentUuid(function (parentUuid) {
+  fin.desktop.InterApplicationBus.subscribe("*","direct-topic",function(msg){
+    document.getElementById("message").value =  (document.getElementById("message").value + JSON.stringify(msg));
+  });
+  fin.desktop.InterApplicationBus.send(parentUuid,"direct-topic", "child loaded");
+});
+
+
+
+
+</script>
+<textarea id="message" style="height:400px;width:300px;"></textarea>

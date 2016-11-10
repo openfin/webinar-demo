@@ -265,7 +265,6 @@ var mInfo;
                     let id = event.target.id;
                     let q = ".hljs." + id;
                     let txt = "";
-                    debugger;
                     let selection = document.querySelector(q);
                     if (selection) {
                         txt = selection.innerText;

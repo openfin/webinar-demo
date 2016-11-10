@@ -26,15 +26,22 @@
         <div class="notification-body">
             <div id="notification-text"></div>
             <div id="time-text"></div>
+            <button id="callback">click here</button>
         </div>
         <script type="text/javascript">
             // messages received from the application creating the application
             function onNotificationMessage(message) {
                 var date = new Date();
-                document.querySelectorAll('#notification-text')[0].innerText = message;
+                document.querySelectorAll('#notification-text')[0].innerText = "message = " + message.length;
                 document.querySelectorAll('#time-text')[0].innerText = new Date().toLocaleString();
             }
-          
+            fin.desktop.main(
+              var notification = fin.desktop.Notification.getCurrent();
+              document.getElementById("callback").addEventListener("click",function(){
+                notification.sendMessageToApplication("some message");
+              });
+
+            );
         </script>
     </body>
 </html>

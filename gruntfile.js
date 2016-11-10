@@ -115,7 +115,7 @@ module.exports = function(grunt) {
                             icon: target + '/img/openfin.ico'
                         },
                         runtime: {
-                            version: "beta"
+                            version: "beta" //"6.49.12.108"
                         }
                     }
                 }

@@ -1,0 +1,19 @@
+<h1 id="message">This is a dockable child window.</h1>
+
+<button id="undock">undock</button>
+<button id="close">close</button>
+
+<script>
+
+  function undock(){
+
+  }
+
+  function closeWin(){
+    fin.desktop.Window.getCurrent().close();
+  }
+
+  document.getElementById("undock").addEventListener("click",undock);
+  document.getElementById("close").addEventListener("click",closeWin);
+
+</script>

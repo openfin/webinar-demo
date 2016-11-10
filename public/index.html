@@ -131,7 +131,7 @@
 					<section>
 							<h2>New Window</h2>
 							<pre><code class="hljs new-win" contenteditable>
-let childWindow = new fin.desktop.Window({
+var childWindow = new fin.desktop.Window({
     name: "childWindow",
     url: "child.html",
     defaultWidth: 320,
@@ -141,7 +141,8 @@ let childWindow = new fin.desktop.Window({
     frame: true,
     resize: false,
     windowState: "normal",
-    autoShow: true
+    autoShow: true,
+		saveWindowState:false
 }, function () {
     console.log("The window has successfully been created");
 }, function () {
@@ -160,10 +161,10 @@ let childWindow = new fin.desktop.Window({
 					<section>
 							<h2>Injecting Content</h2>
 							<pre><code class="inject-content hljs" contenteditable>
-let header = document.createElement("h1");
+var header = document.createElement("h1");
 header.innerText = "Hello World";
 
-let childWindow = new fin.desktop.Window({
+var childWindow = new fin.desktop.Window({
     name: "childWindow",
     url: "child.html",
     defaultWidth: 320,
@@ -189,15 +190,15 @@ let childWindow = new fin.desktop.Window({
 							<h2>Child Window Interaction</h2>
 							<pre><code class="win-interact hljs" contenteditable>
 
-let injectscript = document.createElement("script");
-let scrpt = `
-let pWin = fin.desktop.Window.getCurrent().getParentWindow();
+var injectscript = document.createElement("script");
+var scrpt = `
+var pWin = fin.desktop.Window.getCurrent().getParentWindow();
 pWin.hide();`;
 injectscript.innerText = scrpt;
-let showBut = document.createElement("button");
+var showBut = document.createElement("button");
 showBut.innerText = "show parent";
 
-let childWindow = new fin.desktop.Window({
+var childWindow = new fin.desktop.Window({
     name: "childWindow",
     url: "child.html",
     defaultWidth: 320,
@@ -223,7 +224,7 @@ let childWindow = new fin.desktop.Window({
 					<section>
 							<h2>Animating Windows</h2>
 							<pre><code class="hljs win-animate" contenteditable>
-let childWindow = new fin.desktop.Window({
+var childWindow = new fin.desktop.Window({
     name: "childWindow",
     url: "child.html",
     defaultWidth: 320,
@@ -237,7 +238,7 @@ let childWindow = new fin.desktop.Window({
 		opacity:0
 }, function () {
     console.log("The window has successfully been created");
-		let win = childWindow;
+		var win = childWindow;
 		win.animate({
 			opacity:{
 				opacity:1,
@@ -276,7 +277,7 @@ let childWindow = new fin.desktop.Window({
 					</section>
 					<section>
 							<h2>Tear-outs</h2>
-							<div class="tearout" draggable>Tear this Content out into a new Window!</div>
+							<div class="tearout" draggable><a href="#">Tear this Content out into a new Window!</a></div>
 							<pre><code class="hljs demo-tearout" contenteditable>
 var tearoutWindow = new fin.desktop.Window({
 	name: "tearout_" + Date.now(),
@@ -293,6 +294,7 @@ document.querySelector(".tearout").addEventListener("dragend",function(event){
 	tearout.document.getElementById("content").innerText = event.target.textContent;
 	tearoutWindow.moveTo(event.screenX, event.screenY);
 	tearoutWindow.show();
+	tearoutWindow.bringToFront();
 });
 
 							</code></pre>
@@ -300,8 +302,26 @@ document.querySelector(".tearout").addEventListener("dragend",function(event){
 					</section>
 					<section>
 							<h2>Docking</h2>
-							<pre><code class="hljs"></code></pre>
-							<button class="demo-button">run demo</button>
+							<pre><code class="hljs demo-dock" contenteditable>
+var childWindow = new fin.desktop.Window({
+    name: "dockWindow",
+    url: "dock-child.html",
+    defaultWidth: 320,
+    defaultHeight: 320,
+    defaultTop: 10,
+    defaultLeft: 300,
+    frame: true,
+    resize: false,
+    windowState: "normal",
+    autoShow: true,
+		saveWindowState:false
+}, function () {
+    console.log("The window has successfully been created");
+}, function () {
+    console.log("Error creating window");
+});
+							</code></pre>
+							<button class="demo-button" id="demo-dock">run demo</button>
 					</section>
 				</section>
 
@@ -357,7 +377,7 @@ fin.desktop.System.log("info",
 					</section>
 					<section>
 							<h2>Clipboard Access</h2>
-							<pre><code class="hljs system-clip">
+							<pre><code class="hljs system-clip" contenteditable>
 fin.desktop.System.setClipboard("monitor-info-changed", function () {
   console.log("successful");
 },function (err) {
@@ -382,9 +402,10 @@ var app = new fin.desktop.Application({
     uuid: "foo-88",
     applicationIcon: "http://demoappdirectory.openf.in/desktop/config/apps/OpenFin/HelloOpenFin/img/openfin.ico",
     name: "HelloOpenFin",
+		saveWindowState:false,
     mainWindowOptions: {
         defaultHeight: 600,
-        defaultWidth: 800,
+        defaultWidth: 400,
         defaultTop: 300,
         defaultLeft: 300,
         autoShow: true
@@ -408,7 +429,7 @@ var app = new fin.desktop.Application({
     name: "HelloOpenFin",
     mainWindowOptions: {
         defaultHeight: 600,
-        defaultWidth: 800,
+        defaultWidth: 400,
         defaultTop: 300,
         defaultLeft: 300,
         autoShow: true
@@ -419,9 +440,12 @@ var app = new fin.desktop.Application({
 }, function () {
     console.log("Error creating application");
 });
-application.close();
+document.getElementById("app-closebutton").addEventListener("click",function(){
+	app.close();
+});
 						</code></pre>
 						<button class="demo-button" id="app-manage">run demo</button>
+							<button class="demo-button" id="app-closebutton">close app</button>
 				</section>
 				<section>
 						<h2>Restarting</h2>
@@ -433,7 +457,7 @@ var app = new fin.desktop.Application({
     name: "HelloOpenFin",
     mainWindowOptions: {
         defaultHeight: 600,
-        defaultWidth: 800,
+        defaultWidth: 400,
         defaultTop: 300,
         defaultLeft: 300,
         autoShow: true
@@ -468,9 +492,7 @@ document.getElementById("app-restartbutton").addEventListener("click",function()
 						<pre><code class="hljs noti-create" contenteditable>
 var notification = fin.desktop.Notification({
     url: "notification.html",
-    onShow: function () {
-        notification.sendMessage("This is a notification message");
-    }
+    message:"This is a notification message"
 });
 						</code></pre>
 						<button class="demo-button" id="noti-create">run demo</button>
@@ -478,18 +500,20 @@ var notification = fin.desktop.Notification({
 				<section>
 						<h2>Notification Callbacks</h2>
 						<pre><code class="hljs noti-callback" contenteditable>
-let callback = function(){
-	notification.sendMessage("Your notification was clicked");
+var callback = function(){
+	document.getElementById("noti-callback-msg").innerText = "Your notification was clicked";
 };
 
 var notification = fin.desktop.Notification({
-    url: "notification.html",
-    onShow: function () {
-        notification.sendMessage("This is a notification message",callback);
+    url: "notification-callback.html",
+    message:"This is a notification message"
     }
 });
 </code></pre>
 						<button class="demo-button" id="noti-callback">run demo</button>
+<pre><code class="hljs" id="noti-callback-msg" contenteditable>
+
+</code></pre>
 				</section>
 			</section>
 			<!-- end Notification Demos -->
@@ -502,7 +526,7 @@ var notification = fin.desktop.Notification({
 				<section>
 						<h2>Topic Messages</h2>
 						<pre><code class="hljs bus-topic" contenteditable>
-let callback = function(msg){
+var callback = function(msg){
 	document.getElementById("bus-topic-msg").innerHTML += JSON.stringify(msg);
 	hljs.highlightBlock(document.getElementById("bus-topic-msg"));
 };
@@ -514,19 +538,67 @@ fin.desktop.InterApplicationBus.publish("a topic", {
   field2: "value2"
 });
 
-fin.desktop.InterApplicationBus.unsubscribe("*","a topic", callback);	
+document.getElementById("bus-unsub").addEventListener("click",function(){
+	fin.desktop.InterApplicationBus.unsubscribe("*","a topic", callback);
+});
+
 						</code></pre>
 						<button class="demo-button" id="bus-topic">run demo</button>
+						<button class="demo-button" id="bus-unsub">unsubscribe</button>
 						<pre><code class="hljs" id="bus-topic-msg" contenteditable></code></pre>
 				</section>
 				<section>
 						<h2>Direct Messages</h2>
 						<pre><code class="hljs bus-direct" contenteditable>
 
+var callback = function(msg){
+	document.getElementById("bus-direct-msg").innerHTML += JSON.stringify(msg);
+	hljs.highlightBlock(document.getElementById("bus-direct-msg"));
+};
+
+fin.desktop.InterApplicationBus.subscribe("direct-88","direct-topic",callback);
+
+//launch a new application...
+var app = new fin.desktop.Application({
+    url: "http://localhost:5000/index-direct.html",
+    uuid: "direct-88",
+    name: "Direct Message Window",
+    mainWindowOptions: {
+        defaultHeight: 600,
+        defaultWidth: 400,
+        defaultTop: 300,
+        defaultLeft: 300,
+        autoShow: true
+    }
+}, function () {
+    app.run();
+
+
+}, function () {
+    console.log("Error creating application");
+});
+
+
+document.getElementById("d-bus-send").addEventListener("click",function(){
+	fin.desktop.InterApplicationBus.send("direct-88","direct-topic", {
+		field1: "value1",
+		field2: "value2"
+	},function(){
+		console.log("message sent");
+	},function(e){
+		console.log("error",e);
+	}
+	);
+});
+
+document.getElementById("d-bus-unsub").addEventListener("click",function(){
+	fin.desktop.InterApplicationBus.unsubscribe("*","a topic", callback);
+});
 						</code></pre>
+						<button class="demo-button" id="d-bus-unsub">unsubscribe</button>
+						<button class="demo-button" id="d-bus-send">send</button>
 						<button class="demo-button" id="bus-direct">run demo</button>
-						<pre><code class="hljs" id="bus-direct-msg" contenteditable>
-						</code></pre>
+						<pre><code class="hljs" id="bus-direct-msg" contenteditable></code></pre>
 				</section>
 			</section>
 			<!-- end Inter-App Bus Demos  -->
