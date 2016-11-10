@@ -303,6 +303,7 @@ document.querySelector(".tearout").addEventListener("dragend",function(event){
 					<section>
 							<h2>Docking</h2>
 							<pre><code class="hljs demo-dock" contenteditable>
+var parentWindow = fin.desktop.Window.getCurrent();
 var childWindow = new fin.desktop.Window({
     name: "dockWindow",
     url: "dock-child.html",
@@ -316,10 +317,42 @@ var childWindow = new fin.desktop.Window({
     autoShow: true,
 		saveWindowState:false
 }, function () {
-    console.log("The window has successfully been created");
+    childWindow.addEventListener("bounds-changed",boundsChanged);
 }, function () {
     console.log("Error creating window");
 });
+
+function boundsChanged(event){
+	console.log(event);
+	parentWindow.getBounds(function(bounds){
+		if(isDockable(decorateBounds(bounds),decorateBounds(event))){
+			childWindow.joinGroup(parentWindow);
+		}
+	});
+}
+
+function decorateBounds(b){
+	return {
+		left:b.left,
+		right:(b.left + b.width),
+		top:b.top,
+		bottom:(b.top + b.height)
+	};
+}
+
+function inRange(a,b){
+	var margin = 10;
+	var range = [b-margin,b+margin];
+	return (a > range[0] && a < range[1]);
+}
+
+function isDockable(pBounds,cBounds){
+	//is it on the side?
+	if (inRange(pBounds.left,cBounds.right) || inRange(pBounds.right,cBounds.left)){
+		return true;
+	}
+	return false;
+}
 							</code></pre>
 							<button class="demo-button" id="demo-dock">run demo</button>
 					</section>
@@ -359,8 +392,23 @@ fin.desktop.System.getProcessList(function (list) {
 					</section>
 					<section>
 							<h2>Launching an External Process</h2>
-							<pre><code class="hljs"></code></pre>
-							<button class="demo-button">run demo</button>
+							<pre><code class="hljs system-external" contenteditable>
+fin.desktop.System.launchExternalProcess({
+        path: "notepad",
+        arguments: "",
+        listener: function(code) {
+                console.log('the exit code', code);
+            }
+    },
+    function() {
+        console.log('all good');
+    },
+    function(){
+        console.log('an error');
+    });
+							</code></pre>
+
+							<button class="demo-button" id="system-external">run demo</button>
 					</section>
 					<section>
 							<h2>Logging</h2>
@@ -378,7 +426,7 @@ fin.desktop.System.log("info",
 					<section>
 							<h2>Clipboard Access</h2>
 							<pre><code class="hljs system-clip" contenteditable>
-fin.desktop.System.setClipboard("monitor-info-changed", function () {
+fin.desktop.System.setClipboard("clipboard test", function () {
   console.log("successful");
 },function (err) {
   console.log("failure: " + err);
