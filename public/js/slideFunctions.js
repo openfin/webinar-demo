@@ -1,3 +1,13 @@
+var savedWidth = 300;
+var savedHeight = 300;
+var savedLeft;
+var savedTop;
+
+fin.desktop.System.getMonitorInfo(function(info) {
+    savedLeft = (info.virtualScreen.right / 2) - 300;
+    savedTop = (info.virtualScreen.bottom / 2) - 300;
+});
+
 function doFlash() {
     fin.desktop.Window.getCurrent().blur(function() {
         fin.desktop.Window.getCurrent().flash();
@@ -137,22 +147,6 @@ function launchBar() {
         app.run();
     });
 
-    /*
-      var child = new fin.desktop.({
-          name: "launchBar",
-          defaultWidth: 500,
-          defaultHeight: 150,
-          frame: true,
-          autoShow: false,
-          url: "http://localhost:5000/launchbar.html"
-      }, function() {
-
-          child.show();
-          child.focus();
-          callback(child);
-      }, function(er) {
-          console.log(er);
-      });*/
 }
 
 function doNotification() {
@@ -214,8 +208,6 @@ var mInfo;
             maxHeight: 525,
         };
 
-    //    document.addEventListener('DOMContentLoaded', function() {
-
 
     //OpenFin is ready
     fin.desktop.main(function() {
@@ -258,98 +250,104 @@ var mInfo;
                 }
             };
             //demos
-            let demos = document.querySelectorAll('.demo-button');
-            for (var i = 0; i < demos.length; i++) {
-                let button = demos[i];
-                button.addEventListener("click", function(event) {
-                    let id = event.target.id;
-                    let q = ".hljs." + id;
-                    let txt = "";
-                    let selection = document.querySelector(q);
-                    if (selection) {
-                        txt = selection.innerText;
-                    }
-                    if (txt) {
-                        eval(txt);
-                    }
-                });
+            var demos = document.querySelectorAll('.demo-button');
+
+            function demoClick(event) {
+                let id = event.target.id;
+                let q = ".hljs." + id;
+                let txt = "";
+                let selection = document.querySelector(q);
+                if (selection) {
+                    txt = selection.innerText;
+                }
+                if (txt) {
+                    eval(txt);
+                }
             }
 
-            //Buttons and components.
-            var desktopNotificationButton = document.getElementById('desktop-notification'),
-                cpuInfoButton = document.getElementById('cpu-info'),
-                closeButton = document.getElementById('close-app'),
-                arrangeWindowsButton = document.getElementById('arrange-windows'),
-                minimizeButton = document.getElementById('minimize-window'),
-                maximizeButton = document.getElementById('maximize-window'),
-                interAppButton = document.getElementById('inter-app'),
-                aboutButton = document.getElementById('about-app');
-            flipContainer = document.querySelector('.two-sided-container');
-            githubLink = document.getElementById('githubLink');
-            openFinApiLink = document.getElementById('openFinApiLink');
-            appGalleryLink = document.getElementById('appGalleryLink');
+            for (var i = 0; i < demos.length; i++) {
+                let button = demos[i];
+                button.addEventListener("click", demoClick);
 
-            //Close button event handler
-            closeButton.addEventListener('click', function() {
-                mainWindow.close();
-            });
+                //Buttons and components.
+                var desktopNotificationButton = document.getElementById('desktop-notification'),
+                    cpuInfoButton = document.getElementById('cpu-info'),
+                    closeButton = document.getElementById('close-app'),
+                    arrangeWindowsButton = document.getElementById('arrange-windows'),
+                    minimizeButton = document.getElementById('minimize-window'),
+                    maximizeButton = document.getElementById('maximize-window'),
+                    interAppButton = document.getElementById('inter-app'),
+                    aboutButton = document.getElementById('about-app');
+                flipContainer = document.querySelector('.two-sided-container');
+                githubLink = document.getElementById('githubLink');
+                openFinApiLink = document.getElementById('openFinApiLink');
+                appGalleryLink = document.getElementById('appGalleryLink');
 
-            //Minimize button event handler
-            minimizeButton.addEventListener('click', function() {
-                mainWindow.minimize();
-            });
-
-            //Minimize button event handler
-            maximizeButton.addEventListener('click', function() {
-
-                fin.desktop.System.getMonitorInfo(function(i) {
-                    var info = i;
-                    mainWindow.getBounds(function(bounds) {
-                        //is the window already maximized?
-                        if (info.virtualScreen.right === bounds.width && info.virtualScreen.bottom === (bounds.height + 30)) {
-
-                            mainWindow.animate({
-                                position: {
-                                    left: (info.virtualScreen.right / 2) - 300,
-                                    top: (info.virtualScreen.bottom / 2) - 300,
-                                    duration: 50
-                                },
-                                size: {
-                                    width: 300,
-                                    height: 300,
-                                    duration: 50
-                                }
-                            }, {
-                                interrupt: false
-                            }, function() {
-                                document.getElementById("size-icon").src = "img/max.png";
-                            });
-                        } else {
-                            let h = info.virtualScreen.bottom - 30;
-                            mainWindow.animate({
-                                position: {
-                                    left: 0,
-                                    top: 30,
-                                    duration: 50
-                                },
-                                size: {
-                                    width: info.virtualScreen.right,
-                                    height: (info.virtualScreen.bottom - 30),
-                                    duration: 50
-                                }
-                            }, {
-                                interrupt: false
-                            }, function() {
-                                document.getElementById("size-icon").src = "img/rest.png";
-                            });
-                        }
-                    });
+                //Close button event handler
+                closeButton.addEventListener('click', function() {
+                    mainWindow.close();
                 });
-                /*    mainWindow.maximize(function(){},function(er){
-                        debugger;
-                    })*/
-            });
 
+                //Minimize button event handler
+                minimizeButton.addEventListener('click', function() {
+                    mainWindow.minimize();
+                });
+
+                //Minimize button event handler
+                maximizeButton.addEventListener('click', function() {
+
+                    fin.desktop.System.getMonitorInfo(function(i) {
+                        var info = i;
+                        mainWindow.getBounds(function(bounds) {
+                            //is the window already maximized?
+                            if (info.virtualScreen.right === bounds.width && info.virtualScreen.bottom === (bounds.height + 30)) {
+
+                                mainWindow.animate({
+                                    position: {
+                                        left: savedLeft,
+                                        top: savedTop,
+                                        duration: 50
+                                    },
+                                    size: {
+                                        width: savedWidth,
+                                        height: savedHeight,
+                                        duration: 50
+                                    }
+                                }, {
+                                    interrupt: false
+                                }, function() {
+                                    document.getElementById("size-icon").src = "img/max.png";
+                                });
+                            } else {
+                                savedWidth = bounds.width;
+                                savedHeight = bounds.height;
+                                savedLeft = bounds.left;
+                                savedTop = bounds.top;
+                                var h = info.virtualScreen.bottom - 30;
+                                mainWindow.animate({
+                                    position: {
+                                        left: 0,
+                                        top: 30,
+                                        duration: 50
+                                    },
+                                    size: {
+                                        width: info.virtualScreen.right,
+                                        height: (info.virtualScreen.bottom - 30),
+                                        duration: 50
+                                    }
+                                }, {
+                                    interrupt: false
+                                }, function() {
+                                    document.getElementById("size-icon").src = "img/rest.png";
+                                });
+                            }
+                        });
+                    });
+                    /*    mainWindow.maximize(function(){},function(er){
+                            debugger;
+                        })*/
+                });
+            }
             //  draggableArea = document.querySelector('.container'),
 
             var runtimeVersionNumberContainer = document.querySelector('#runtime-version-number');
@@ -363,11 +361,6 @@ var mInfo;
             minimizeButton.addEventListener('click', function() {
                 mainWindow.minimize();
             });
-
-            fin.desktop.System.getVersion(function(version) {
-                runtimeVersionNumberContainer.innerText = version;
-            });
-
         };
 
 

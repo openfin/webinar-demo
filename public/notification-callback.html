@@ -32,16 +32,22 @@
             // messages received from the application creating the application
             function onNotificationMessage(message) {
                 var date = new Date();
-                document.querySelectorAll('#notification-text')[0].innerText = "message = " + message.length;
+                document.querySelectorAll('#notification-text')[0].innerText = message;
                 document.querySelectorAll('#time-text')[0].innerText = new Date().toLocaleString();
             }
-            fin.desktop.main(
-              var notification = fin.desktop.Notification.getCurrent();
-              document.getElementById("callback").addEventListener("click",function(){
-                notification.sendMessageToApplication("some message");
-              });
+            //  var notification = fin.desktop.Notification.getCurrent();
+            //  notification.getParentApplication().getManifest(function(manifest){
+            //    var uuid = manifest.uuid;
+            //    alert(uuid);
+                document.getElementById("callback").addEventListener("click",function(){
+                    fin.desktop.Notification.getCurrent().sendMessageToApplication("message callback");
+                //  fin.desktop.InterApplicationBus.send(uuid,"notification-callback","callback message");
+                });
+            //  });
 
-            );
+
+
+
         </script>
     </body>
 </html>

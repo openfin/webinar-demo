@@ -548,14 +548,14 @@ var notification = fin.desktop.Notification({
 				<section>
 						<h2>Notification Callbacks</h2>
 						<pre><code class="hljs noti-callback" contenteditable>
-var callback = function(){
-	document.getElementById("noti-callback-msg").innerText = "Your notification was clicked";
+var callback = function(message){
+	document.getElementById("noti-callback-msg").innerText = message;
 };
-
-var notification = fin.desktop.Notification({
+fin.desktop.InterApplicationBus.subscribe("*","notification-callback",callback);
+var notification = new fin.desktop.Notification({
     url: "notification-callback.html",
-    message:"This is a notification message"
-    }
+    message:"This is a notification message",
+		onMessage:callback
 });
 </code></pre>
 						<button class="demo-button" id="noti-callback">run demo</button>
