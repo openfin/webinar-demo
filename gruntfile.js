@@ -134,13 +134,13 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
+    //  grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-jsbeautifier');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-openfin');
 
-    grunt.registerTask('default', ['jshint', 'jsbeautifier']);
-    grunt.registerTask('test', ['jshint', 'jsbeautifier']);
+    grunt.registerTask('default', ['jsbeautifier']);
+    grunt.registerTask('test', ['jsbeautifier']);
     grunt.registerTask('serve', ['test', 'connect:livereload', 'openfin:serve', 'watch']);
     grunt.registerTask('build', ['test', 'openfin:build']);
 
