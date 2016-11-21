@@ -277,7 +277,7 @@ var childWindow = new fin.desktop.Window({
 					</section>
 					<section>
 							<h2>Tear-outs</h2>
-							<div class="tearout" draggable><a href="#">Tear this Content out into a new Window!</a></div>
+							<div class="tearout" draggable>Tear this Content out into a new Window!</div>
 							<pre><code class="hljs demo-tearout" contenteditable>
 var tearoutWindow = new fin.desktop.Window({
 	name: "tearout_" + Date.now(),
@@ -290,6 +290,8 @@ var tearoutWindow = new fin.desktop.Window({
 });
 
 document.querySelector(".tearout").addEventListener("dragend",function(event){
+	event.stopPropagation();
+	event.preventDefault();
 	var tearout = tearoutWindow.getNativeWindow();
 	tearout.document.getElementById("content").innerText = event.target.textContent;
 	tearoutWindow.moveTo(event.screenX, event.screenY);
