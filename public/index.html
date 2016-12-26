@@ -11,6 +11,16 @@
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="bower_components/reveal.js/lib/css/zenburn.css">
     <style>
+		.reveal section img  {
+			border: 0px;
+			background: none;
+			box-shadow:none !important;
+		}
+
+		.external:hover {
+			cursor:pointer;
+		}
+
       .img-bar {
         height:300px;
         width:900px;
@@ -103,26 +113,243 @@
 		</script>
 	</head>
 	<body>
-		<div class="container of-draggable">
-
-	        <!--<div id="about-app" class="btn top-btn about"><img src="img/tools/question-mark.png"></div>-->
-	        <div id="minimize-window" class="btn top-btn minimize"><img src="img/min.png"></div>
-	        <div id="maximize-window" class="btn top-btn maximize"><img id="size-icon" src="img/rest.png"></div>
-	        <div id="close-app" class="btn top-btn close"><img src="img/close.png"></div>
-	  </div>
 
 		<div class="reveal">
 			<div class="slides">
 				<section style="background:white;">
 					<img src="img/openfin-logo.png" style="border:0;box-shadow:0 0 0px;">
-            <div style="padding-top:100px;font-size:48px;text-align:center;width=100%">
-							API Demos
-						</div>
+
 						<div style="font-size:32px;width=100%;text-align:center;">
 							www.openfin.co | @openfintech
 						</div>
 
         </section>
+				<section>
+					<img src="img/bio-pic.png">
+					<div style="width:60%;float:right">
+						<div style="text-align:left;">
+						<h2>Nicholas Kolba</h2>
+						<ul>
+								<li>Director of Ecosystem, OpenFin</li>
+								<li>Formerly at TR as Director of Technology on Eikon</li>
+								<li>Leader in adoption of Chromium and  HTML5 @ TR</li>
+						</ul>
+					</div>
+					</div>
+					<aside class="notes">I’m Nick Kolba.   Director of Ecosystem @ OpenFin.  I had a long tenure at Thomson Reuters where I lead many innovative projects around the Eikon product including the Eikon App Studio, and Chromium integration into Eikon.</aside>
+				</section>
+				<section>
+						<h2>a brief history</h2>
+						<img src="img/history.png">
+				</section>
+				<section>
+						<h2>what is openfin?</h2>
+						<img src="img/whatis.png">
+				</section>
+				<section>
+						<h2 style="margin-bottom:0px;">key benefits</h2>
+						<div style="color:#999;">Desktop experience powered by the Web</div>
+						<img src="img/benefits.png">
+				</section>
+				<section>
+								<h2 style="">Communication</h2>
+
+									<div style="display: -webkit-flex;-webkit-flex-flow: row wrap;justify-content: space-around;align-content:space-between;">
+										<img src="img/node.png" style="height:200px;width:177px;">
+										<img src="img/dotnet.png" style="height:200px;width:200px;">
+										<img src="img/java.png" style="height:200px;width:154px;">
+										<img src="img/flash.png" style="height:198px;width:200px;">
+								</div>
+								<div style="display: -webkit-flex;-webkit-flex-flow: row wrap;justify-content: space-around;align-content:space-between;">
+										<img src="img/excel.png"  style="height:188px;width:200px;">
+										<img src="img/bloomberg.png" style="height:200px;width:200px;">
+										<img src="img/eikon.png" style="height:200px;width:200px;">
+									</div>
+								<aside class="notes">financial desktops can support an eco-system of Apps  that will begin to look a lot like micro services in the containerized world of cloud
+									(web intents) (D apps)  -- distributed apps
+								</aside>
+				</section>
+
+				<section data-background-image="img/packaging.png" data-background-size="33%" data-background-position="right">
+					<h2>Packaging and Delivery</h2>
+					<ul>
+						<li>Runtime Version Manager</li>
+						<li>Auto-Updates</li>
+						<li>Protocol Handlers</li>
+						<li>Installer Generator<br><i><a class="external" data-link="https://install.openfin.co/">https://install.openfin.co/</a></i></li>
+					</ul>
+				</section>
+
+				<section>
+						<h2>Hyperblotter</h2>
+						<img src="img/hyperb.png" id="hyperblotter">
+				</section>
+				<section data-background-size="50%" data-background-image="img/stopwatch.png">
+						<h2>"Hello World"<h2>
+						<h3>in 5 minutes or less</h3>
+				</section>
+				<section data-background-size="30%" data-background-position="top right" data-background-image="img/stopwatch.png">
+					<h2>OpenFin CLI</h2>
+
+					<ol>
+						<li>Install NodeJS</li>
+						<li style="margin-top:1em;">Install OpenFin CLI
+								<pre style="margin-left:0px;"><code class="hljs" style="width:800px;">
+npm install -g openfin-cli
+								</code></pre>
+								<a class="external" data-link="https://github.com/openfin/openfin-cli">https://github.com/openfin/openfin-cli</a>
+						</li>
+						<li style="margin-top:1em;">
+							Use the CLI to open a URL in the runtime
+							<pre style="margin-left:0px;"><code class="hljs" style="width:800px;">
+openfin --launch --config https://demoappdirectory.openf.in/desktop/config/apps/OpenFin/HelloOpenFin/app.json
+							</code></pre>
+						</li>
+				</section>
+				<section data-background-size="30%" data-background-position="top right" data-background-image="img/puzzle.png">
+					<h2>Integrating your application</h2>
+
+					<ol>
+						<li>Set up your local app
+							<pre style="margin-left:0px;"><code class="hljs" style="width:800px;">
+npm init
+npm install express
+create app.js
+						</code></pre>
+
+						</li>
+						<li style="margin-top:1em;">Use the CLI to generate a config
+								<pre style="margin-left:0px;"><code class="hljs" style="width:800px;">
+openfin --config app.json --name myAppName --url http://localhost:3000
+						</code></pre>
+						</li>
+						<li style="margin-top:1em;">
+							Launch using the generated app.config file
+							<pre style="margin-left:0px;"><code class="hljs" style="width:800px;">
+openfin --launch --config app.json
+						</code></pre>
+						</li>
+				</section>
+				<section>
+					<h2>Generated Config</h2>
+
+<pre><code class="hljs">{
+	"devtools_port":9090,
+	"startup_app": {
+		"name": "myAppName",
+		"description": "OpenFin PoC",
+		"url": "http://localhost:3000",
+		"uuid": "myAppName-ly42qpgzes46lxr",
+		"autoShow": true
+	},
+	"runtime": {
+		"arguments": "",
+		"version": "beta"
+	},
+	"shortcut": {
+		"company": "OpenFin",
+		"description": "OpenFin PoC",
+		"name": "myAppName"
+	}
+}</code></pre>
+
+				</section>
+
+				<section>
+					<h2>Generating App Boilerplate</h2>
+					<h3> with Yoeman</h3>
+
+					<ol>
+						<li>Install the tools
+							<pre style="margin-left:0px;"><code class="hljs" style="width:800px;">
+npm install -g yo grunt grunt-cli generator-openfin
+						</code></pre>
+
+						</li>
+						<li style="margin-top:1em;">Initialize
+								<pre style="margin-left:0px;"><code class="hljs" style="width:800px;">
+yo openfin
+						</code></pre>
+						</li>
+						<li style="margin-top:1em;">
+							Run
+							<pre style="margin-left:0px;"><code class="hljs" style="width:800px;">
+grunt serve
+						</code></pre>
+						</li>
+				</section>
+			<section>
+				<h2>Application Manifest</h2>
+				<p style="font-size:16pt;"">The OpenFin Runtime requires each application to provide a JSON formatted configuration file. This configuration file defines the visual properties of the app, its dependencies, and other deployment settings. </p>
+<pre><code class="hljs">{
+  "startup_app": {
+    "name": "Hyperblotter",
+    "description": "Hyperblotter Demo",
+    "url": "http://cdn.openfin.co/demos/hyperblotter/index.html",
+    "icon": "http://cdn.openfin.co/demos/hyperblotter/images/hyperblotter_icon.ico",
+    "uuid": "hyperblotter",
+    "autoShow": true,
+    "defaultWidth": 360,
+    "maxWidth": 360,
+    "minWidth": 360,
+    "maxHeight": 90,
+    "defaultHeight": 90,
+    "minHeight": 90,
+    "defaultTop": 50,
+    "defaultLeft": 10,
+    "resizable": false,
+    "maximizable": false,
+    "frame": false,
+    "alwaysOnTop":true,
+    "cornerRounding": {
+        "width": 5,
+        "height": 5
+    }
+  },
+  "runtime": {
+      "arguments": "",
+      "version": "stable"
+  },
+  "appAssets": [
+      {
+        "src": "http://cdn.openfin.co/demos/hyperblotter/assets/dist.zip",
+        "alias": "excel-dist",
+        "target": "excel.exe",
+        "version": "0.0.1",
+        "args" : "-i -l hyperblotter.xlsx"
+      },
+      {
+        "src": "http://cdn.openfin.co/demos/hyperblotter/assets/HyperblotterChart.zip",
+        "alias": "hyperblotter-chart",
+        "target": "HyperblotterChart.exe",
+        "version": "1.0.0"
+      }
+  ],
+  "splashScreenImage": "http://cdn.openfin.co/demos/hyperblotter/images/splashscreen.png",
+  "shortcut": {
+      "company": "OpenFin",
+      "description": "Hyperblotter Demo",
+      "icon": "http://cdn.openfin.co/demos/hyperblotter/images/hyperblotter_icon.ico",
+      "name": "Hyperblotter Demo"
+  }
+}</code></pre>
+
+			</section>
+
+			<section>
+				<h2>API Features</h2>
+				<img src="img/api.png">
+			</section>
+
+			<section>
+				<h2>Working with the APIs</h2>
+				<p>OpenFin doesn’t limit what frameworks you can use.  If it works in Chrome, it will work in OpenFin.</p>
+
+				<p>The OpenFin APIs cover only the functionality  commercial browsers don’t.  This ensures that the amount of OpenFin specific code in an app is limited.</p>
+
+				<p>We recommend wrapping app-specific  touch points to OpenFin APIs using the framework of choice.</p>
+			</section>
+
 				<section>
 					<section>
 							<h1>Windowing</h1>
@@ -652,6 +879,17 @@ document.getElementById("d-bus-unsub").addEventListener("click",function(){
 				</section>
 			</section>
 			<!-- end Inter-App Bus Demos  -->
+
+			<section data-background-image="img/poc.png" data-background-size="75%" data-background-position="bottom">
+				<h2>Building a PoC</h2>
+				<ul>
+					<li><a class="external" data-link="https://openfin.co/development-tools-overview/">Development Tools</a></li>
+					<li><a class="external" data-link="https://github.com/openfin">Our GitHub Repository</a></li>
+					<li><a class="external" data-link="https://openfin.co/support/release-notes/">General Support Information</a></li>
+					<li><a class="external" data-link="https://www.youtube.com/watch?v=uBuTTAL8A-4">Hello OpenFin Tutorial</a></li>
+					<li><a class="external" data-link="https://github.com/openfin/openfin-training-demo">This Demo</a></li>
+				</ul>
+			</section>
 
   	<script src="bower_components/d3/d3.js" charset="utf-8"></script>
 		<script src="js/utils.js"></script>

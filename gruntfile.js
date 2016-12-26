@@ -103,7 +103,7 @@ module.exports = function(grunt) {
                             defaultCentered: true,
                             url: target + '/index.html',
                             applicationIcon: target + '/img/openfin.ico',
-                            frame: false,
+                            frame: true,
                             "defaultHeight": 300,
                             "defaultWidth": 300
                                 /*    "cornerRounding": {
@@ -115,7 +115,7 @@ module.exports = function(grunt) {
                             icon: target + '/img/openfin.ico'
                         },
                         runtime: {
-                            version: "beta" //"6.49.12.108"
+                            version: "stable"
                         }
                     }
                 }
@@ -142,6 +142,7 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['jsbeautifier']);
     grunt.registerTask('test', ['jsbeautifier']);
     grunt.registerTask('serve', ['test', 'connect:livereload', 'openfin:serve', 'watch']);
+    //  grunt.registerTask('serve', ['test', 'connect:livereload', 'watch']);
     grunt.registerTask('build', ['test', 'openfin:build']);
 
 };
