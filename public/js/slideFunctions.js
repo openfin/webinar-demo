@@ -45,9 +45,9 @@ function launchHyperblotter() {
     });
 }
 
-function externalLink(event){
-  var url = event.target.getAttribute("data-link");
-  fin.desktop.System.openUrlWithBrowser(url);
+function externalLink(event) {
+    var url = event.target.getAttribute("data-link");
+    fin.desktop.System.openUrlWithBrowser(url);
 }
 
 var start;
@@ -172,9 +172,9 @@ var mInfo;
             var runtimeVersionNumberContainer = document.querySelector('#runtime-version-number');
 
             var exLinks = document.querySelectorAll(".external");
-            for (var i = 0; i < exLinks.length; i++){
-              let lnk = exLinks[i];
-              lnk.addEventListener("click", externalLink);
+            for (var i = 0; i < exLinks.length; i++) {
+                let lnk = exLinks[i];
+                lnk.addEventListener("click", externalLink);
             }
         };
 

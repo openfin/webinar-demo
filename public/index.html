@@ -6,7 +6,7 @@
 		<title>OpenFin API Demos</title>
 
 		<link rel="stylesheet" href="bower_components/reveal.js/css/reveal.css">
-		<link rel="stylesheet" href="bower_components/reveal.js/css/theme/white.css">
+		<link rel="stylesheet" href="bower_components/reveal.js/css/theme/black.css">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="bower_components/reveal.js/lib/css/zenburn.css">
@@ -116,7 +116,7 @@
 
 		<div class="reveal">
 			<div class="slides">
-				<section style="background:white;">
+				<section>
 					<img src="img/openfin-logo.png" style="border:0;box-shadow:0 0 0px;">
 
 						<div style="font-size:32px;width=100%;text-align:center;">
@@ -129,6 +129,7 @@
 					<div style="width:60%;float:right">
 						<div style="text-align:left;">
 						<h2>Nicholas Kolba</h2>
+						<div>nick@openfin.co / @nkolba</div>
 						<ul>
 								<li>Director of Ecosystem, OpenFin</li>
 								<li>Formerly at TR as Director of Technology on Eikon</li>
@@ -141,15 +142,50 @@
 				<section>
 						<h2>a brief history</h2>
 						<img src="img/history.png">
+						<aside class="notes">
+							The WEB is kind of shockingly young when you think about it.
+							Especially when we consider that a lot of the technology that underlies what we would think of as the modern Web
+							is only around 10 years old of less.
+							But deep roots were layed in the beginning that have allowed the web to thrive and fend off challenges that would have
+							taken us into a proprietary world of siloed tech like flash or silverlight.
+							In just the past few years - we've seen this huge emergence of Javascrpt as ... kind of the most powerful language in the world
+							as well as web technologies like Javascript and HTML finding their way into all sorts of places we would never have imagined them previously
+							 like the server and installed desktop applications.
+						</aside>
 				</section>
 				<section>
 						<h2>what is openfin?</h2>
 						<img src="img/whatis.png">
 				</section>
+
+
 				<section>
-						<h2 style="margin-bottom:0px;">key benefits</h2>
-						<div style="color:#999;">Desktop experience powered by the Web</div>
-						<img src="img/benefits.png">
+					<h2>Financial Desktop Apps Today</h2>
+				</section>
+
+				<section>
+						<div style="background-image:url(img/desktop-today.png);height:700px;background-repeat:no-repeat;">
+						</div>
+						<aside class="notes">Traditional installed applications (Java, .Net, C++) still dominate the financial desktop, and not without reason.   Enterprise constraints on browsers, along with critical functional gaps in commercial browsers, are real non-starters in many cases.  Native/installed desktop apps bring powerful features to the table, but they also face enormous downsides, particularly around agility of deployment and updating.</aside>
+				</section>
+
+
+				<section>
+					<h2>The OpenFin Desktop</h2>
+				</section>
+
+				<section>
+						<div style="background-image:url(img/desktop-future.png);height:700px;background-repeat:no-repeat;">
+						</div>
+						<aside class="notes">The best of both worlds.  Native experience, but with web security and deployment models baked in.  We also want cross-platform - which we’re used to in the web world, as well as inter-operability between apps on the same client - something that is pretty common with native financial platforms but a web security model can unlock a lot more value here.</aside>
+				</section>
+				<section
+				<section>
+					<h2>Key Benefits</h2>
+				</section>
+				<section>
+					<h2>OpenFin API</h2>
+					<img src="img/api.png">
 				</section>
 				<section>
 								<h2 style="">Communication</h2>
@@ -169,7 +205,16 @@
 									(web intents) (D apps)  -- distributed apps
 								</aside>
 				</section>
+				<section>
+					<h2>Security</h2>
+					<ul>
+						<li>Security Sandbox</li>
+						<li>Group Policy</li>
+						<li>Signed Code Packages</li>
+						<li>Strong Application Identity</li>
+					</ul>
 
+				</section>
 				<section data-background-image="img/packaging.png" data-background-size="33%" data-background-position="right">
 					<h2>Packaging and Delivery</h2>
 					<ul>
@@ -336,18 +381,17 @@ grunt serve
 
 			</section>
 
-			<section>
-				<h2>API Features</h2>
-				<img src="img/api.png">
-			</section>
+
 
 			<section>
 				<h2>Working with the APIs</h2>
-				<p>OpenFin doesn’t limit what frameworks you can use.  If it works in Chrome, it will work in OpenFin.</p>
-
-				<p>The OpenFin APIs cover only the functionality  commercial browsers don’t.  This ensures that the amount of OpenFin specific code in an app is limited.</p>
-
-				<p>We recommend wrapping app-specific  touch points to OpenFin APIs using the framework of choice.</p>
+				<ul>
+					<li>If it works in Chrome, it will work in OpenFin.</li>
+					<li>The OpenFin APIs only cover what browsers don’t.</li>
+					<li>The amount of OpenFin specific code in an app is limited.</li>
+					<li>OpenFin doesn’t limit what frameworks you can use.</li>
+					<li>Wrap API touch points using the framework of choice.</li>
+				</ul>
 			</section>
 
 				<section>
@@ -462,6 +506,7 @@ var childWindow = new fin.desktop.Window({
     resize: false,
     windowState: "normal",
     autoShow: true,
+		saveWindowState:false,
 		opacity:0
 }, function () {
     console.log("The window has successfully been created");
@@ -880,15 +925,15 @@ document.getElementById("d-bus-unsub").addEventListener("click",function(){
 			</section>
 			<!-- end Inter-App Bus Demos  -->
 
-			<section data-background-image="img/poc.png" data-background-size="75%" data-background-position="bottom">
+			<section>
 				<h2>Building a PoC</h2>
 				<ul>
-					<li><a class="external" data-link="https://openfin.co/development-tools-overview/">Development Tools</a></li>
 					<li><a class="external" data-link="https://github.com/openfin">Our GitHub Repository</a></li>
 					<li><a class="external" data-link="https://openfin.co/support/release-notes/">General Support Information</a></li>
 					<li><a class="external" data-link="https://www.youtube.com/watch?v=uBuTTAL8A-4">Hello OpenFin Tutorial</a></li>
 					<li><a class="external" data-link="https://github.com/openfin/openfin-training-demo">This Demo</a></li>
 				</ul>
+				<img src="img/poc.png">
 			</section>
 
   	<script src="bower_components/d3/d3.js" charset="utf-8"></script>
