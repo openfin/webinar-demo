@@ -400,7 +400,9 @@ grunt serve
 
 					</section>
 					<section>
-							<h2>New Window</h2>
+
+							<h3>New Window</h3>
+							<div>Create a child window in the same process</div>
 							<pre><code class="hljs new-win" contenteditable>
 var childWindow = new fin.desktop.Window({
     name: "childWindow",
@@ -413,6 +415,7 @@ var childWindow = new fin.desktop.Window({
     resize: false,
     windowState: "normal",
     autoShow: true,
+
 		saveWindowState:false
 }, function () {
     console.log("The window has successfully been created");
@@ -422,15 +425,12 @@ var childWindow = new fin.desktop.Window({
 </pre></code>
 							<button id="new-win" class="demo-button">run demo</button>
 					</section>
-	<!--				<section>
-							<h2>Window Configuration</h2>
-							<pre><code class="hljs"></pre></code>
-							<button class="demo-button">run demo</button>
-					</section>-->
+
 
 
 					<section>
-							<h2>Injecting Content</h2>
+							<h3>Injecting Content</h3>
+
 							<pre><code class="inject-content hljs" contenteditable>
 var header = document.createElement("h1");
 header.innerText = "Hello World";
@@ -458,7 +458,7 @@ var childWindow = new fin.desktop.Window({
 							<button id="inject-content" class="demo-button">run demo</button>
 					</section>
 					<section>
-							<h2>Child Window Interaction</h2>
+							<h3>Child Window Interaction</h3>
 							<pre><code class="win-interact hljs" contenteditable>
 
 var injectscript = document.createElement("script");
@@ -548,12 +548,13 @@ var childWindow = new fin.desktop.Window({
 							<button class="demo-button" id="win-animate">run demo</button>
 					</section>
 					<section>
-							<h2>Tear-outs</h2>
+							<h3>Tear-outs</h3>
 							<div class="tearout" draggable>Tear this Content out into a new Window!</div>
 							<pre><code class="hljs demo-tearout" contenteditable>
+var root = document.location.protocol + "//" + document.location.host;
 var tearoutWindow = new fin.desktop.Window({
 	name: "tearout_" + Date.now(),
-	url:"http://localhost:5000/tearout.html",
+	url: root + "/tearout.html",
 	frame:false,
 	autoShow:false,
 	"defaultHeight": 150,
@@ -575,7 +576,7 @@ document.querySelector(".tearout").addEventListener("dragend",function(event){
 							<button class="demo-button" id="demo-tearout">run demo</button>
 					</section>
 					<section>
-							<h2>Docking</h2>
+							<h3>Docking</h3>
 							<pre><code class="hljs demo-dock" contenteditable>
 var parentWindow = fin.desktop.Window.getCurrent();
 var childWindow = new fin.desktop.Window({
@@ -597,11 +598,26 @@ var childWindow = new fin.desktop.Window({
 });
 
 function boundsChanged(event){
-	console.log(event);
+
 	parentWindow.getBounds(function(bounds){
-		if(isDockable(decorateBounds(bounds),decorateBounds(event))){
-			childWindow.joinGroup(parentWindow);
+		isDockable(decorateBounds(bounds),decorateBounds(event), function(r){
+			if (r){
+			 childWindow.animate({
+				 position:{
+				 left:(bounds.left - (event.width-10)),
+				 top:bounds.top,
+				 duration:500
+				}
+			},
+			{
+			  interrupt:false
+			},
+			function(){
+				childWindow.joinGroup(parentWindow);
+			});
+
 		}
+  });
 	});
 }
 
@@ -615,18 +631,28 @@ function decorateBounds(b){
 }
 
 function inRange(a,b){
-	var margin = 10;
+	var margin = 25;
 	var range = [b-margin,b+margin];
 	return (a > range[0] && a < range[1]);
 }
 
-function isDockable(pBounds,cBounds){
-	//is it on the side?
-	if (inRange(pBounds.left,cBounds.right) || inRange(pBounds.right,cBounds.left)){
-		return true;
-	}
-	return false;
+function isDockable(pBounds,cBounds, callback){
+	//is it already docked?
+
+	return fin.desktop.Window.getCurrent().getGroup(function(group){
+  	if (group.length > 0){
+			callback.call(this,false);
+		}
+		else {
+	   //is it on the side?
+	   if (inRange(pBounds.left,cBounds.right) || inRange(pBounds.right,cBounds.left)){
+		   callback.call(this,true);
+		 }
+		  callback.apply(null,false);
+		}
+});
 }
+
 							</code></pre>
 							<button class="demo-button" id="demo-dock">run demo</button>
 					</section>
@@ -638,7 +664,7 @@ function isDockable(pBounds,cBounds){
 						<h1>System</h1>
 					</section>
 					<section>
-							<h2>Screen Info</h2>
+							<h3>Screen Info</h3>
 							<pre><code class="hljs system-monitor" contenteditable>
 fin.desktop.System.getMonitorInfo(function (monitorInfo) {
     console.log("This object contains information about all monitors: ", monitorInfo);
@@ -651,7 +677,7 @@ fin.desktop.System.getMonitorInfo(function (monitorInfo) {
 							</code></pre>
 					</section>
 					<section>
-							<h2>System Info</h2>
+							<h3>System Info</h3>
 							<pre><code class="hljs system-process" contenteditable>
 fin.desktop.System.getProcessList(function (list) {
     list.forEach(function (process) {
@@ -665,7 +691,7 @@ fin.desktop.System.getProcessList(function (list) {
 							<pre><code class="hljs" id="processInfo" contenteditable></code></pre>
 					</section>
 					<section>
-							<h2>Launching an External Process</h2>
+							<h3>Launching an External Process</h3>
 							<pre><code class="hljs system-external" contenteditable>
 fin.desktop.System.launchExternalProcess({
         path: "notepad",
@@ -684,7 +710,7 @@ fin.desktop.System.launchExternalProcess({
 
 							<button class="demo-button" id="system-external">run demo</button>
 					</section>
-					<section>
+		<!--			<section>
 							<h2>Logging</h2>
 							<pre><code class="hljs system-log" contenteditable>
 fin.desktop.System.log("info",
@@ -696,15 +722,19 @@ fin.desktop.System.log("info",
 });
 							</code></pre>
 							<button class="demo-button" id="system-log">run demo</button>
-					</section>
+					</section>-->
 					<section>
-							<h2>Clipboard Access</h2>
+							<h3>Clipboard Access</h3>
 							<pre><code class="hljs system-clip" contenteditable>
-fin.desktop.System.setClipboard("clipboard test", function () {
-  console.log("successful");
-},function (err) {
-  console.log("failure: " + err);
+fin.desktop.Window.getCurrent().getSnapshot(function (base64Snapshot) {
+	var src = "data:image/png;base64," + base64Snapshot;
+	fin.desktop.System.Clipboard.writeText("<img src=" + src + ">", function () {
+		console.log("successful");
+	},function (err) {
+		console.log("failure: " + err);
+	});
 });
+
 							</code></pre>
 							<button class="demo-button" id="system-clip">run demo</button>
 					</section>
@@ -881,8 +911,9 @@ var callback = function(msg){
 fin.desktop.InterApplicationBus.subscribe("direct-88","direct-topic",callback);
 
 //launch a new application...
+var root = document.location.protocol + "//" + document.location.host;
 var app = new fin.desktop.Application({
-    url: "http://localhost:5000/index-direct.html",
+    url: root + "/index-direct.html",
     uuid: "direct-88",
     name: "Direct Message Window",
     mainWindowOptions: {
