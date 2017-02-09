@@ -21,79 +21,6 @@
 			cursor:pointer;
 		}
 
-      .img-bar {
-        height:300px;
-        width:900px;
-        text-align:center;
-        vertical-align:middle !important;
-        background:white;
-
-      }
-      .img-bar img{
-        margin-left:20px !important;
-        margin-right:20px !important;
-          box-shadow:none !important;
-      }
-
-			.container {
-				height:32px;
-				background:white;
-		    }
-		    .container:active {
-		        cursor: -webkit-grabbing !important;
-		    }
-
-		    .btn {
-		  /*  padding: 3px;*/
-		    margin-right: 0px;
-		    font-weight: bold;
-		    cursor: pointer;
-		    transition: all .4s ease-in
-		}
-		.btn:hover {
-		    background-color: #CBCBCB;
-		  /*  border: 1px solid #333434;*/
-		}
-		.close.btn:hover {
-			background-color:#E33;
-		}
-		.btn:active {
-		    background-color: #CBCBCB;
-		/*    border: 1px solid #333434;
-		    box-shadow: inset 0 1px rgba(255,255,255,0.36), 0 0 0 2px #6fb5f1;*/
-		    outline: 0;
-		}
-		.top-btn {
-		    position: absolute;
-		  /*  border-radius: 20px;*/
-		    margin: 0px;
-		    line-height: 10px;
-		  /*  top: 5px;*/
-		  /*  padding: 1px 4px 3px 4px;*/
-		    -webkit-app-region: no-drag;
-		}
-
-		.close {
-		    right: 0px;
-		}
-
-		.maximize {
-		    right: 27px;
-		}
-
-		.minimize {
-		    right: 53px;
-		}
-
-		.minimize-bar {
-		    background: #2D2D2D;
-		    width: 8px;
-		    height: 2px;
-		    display: inline-block;
-		    border-radius: 20px;
-		    vertical-align: middle;
-		}
-
 		.demo-button {
 			background:#fff;
 			text-transform: uppercase;
@@ -102,6 +29,22 @@
 			border-color:#333;
 		}
 
+		.reveal .api-output {
+			margin-top:10px;
+			font-size: 16pt;
+			width:854px;
+			margin-left: 48px;
+			margin-right:48px
+			font-family: courier;
+			overflow: auto;
+			height: 200px;
+			text-align: left;
+		}
+
+		.reveal .shade{
+						text-shadow: 2px 2px 3px black;
+					color:white;
+				}
     </style>
 		<!-- Printing and PDF exports -->
 		<script>
@@ -131,14 +74,20 @@
 						<h2>Nicholas Kolba</h2>
 						<div>nick@openfin.co / @nkolba</div>
 						<ul>
-								<li>Director of Ecosystem, OpenFin</li>
+								<li>CTO, OpenFin</li>
 								<li>Formerly at TR as Director of Technology on Eikon</li>
 								<li>Leader in adoption of Chromium and  HTML5 @ TR</li>
 						</ul>
 					</div>
 					</div>
-					<aside class="notes">I’m Nick Kolba.   Director of Ecosystem @ OpenFin.  I had a long tenure at Thomson Reuters where I lead many innovative projects around the Eikon product including the Eikon App Studio, and Chromium integration into Eikon.</aside>
+					<aside class="notes">I’m Nick Kolba.   CTO @ OpenFin.  I had a long tenure at Thomson Reuters where I lead many innovative projects around the Eikon product including the Eikon App Studio, and Chromium integration into Eikon.</aside>
 				</section>
+				<section>
+						<h2>what is openfin?</h2>
+						<img src="img/whatis.png">
+						<aside class="notes">How many of you have used OpenFin?</aside>
+				</section>
+
 				<section>
 						<h2>a brief history</h2>
 						<img src="img/history.png">
@@ -153,10 +102,7 @@
 							 like the server and installed desktop applications.
 						</aside>
 				</section>
-				<section>
-						<h2>what is openfin?</h2>
-						<img src="img/whatis.png">
-				</section>
+
 
 
 				<section>
@@ -202,19 +148,9 @@
 										<img src="img/eikon.png" style="height:200px;width:200px;">
 									</div>
 								<aside class="notes">financial desktops can support an eco-system of Apps  that will begin to look a lot like micro services in the containerized world of cloud
-									(web intents) (D apps)  -- distributed apps
 								</aside>
 				</section>
-				<section>
-					<h2>Security</h2>
-					<ul>
-						<li>Security Sandbox</li>
-						<li>Group Policy</li>
-						<li>Signed Code Packages</li>
-						<li>Strong Application Identity</li>
-					</ul>
 
-				</section>
 				<section data-background-image="img/packaging.png" data-background-size="33%" data-background-position="right">
 					<h2>Packaging and Delivery</h2>
 					<ul>
@@ -224,57 +160,72 @@
 						<li>Installer Generator<br><i><a class="external" data-link="https://install.openfin.co/">https://install.openfin.co/</a></i></li>
 					</ul>
 				</section>
+				<section  data-background-image="img/safe.jpg" class="shade">
+					<h2>Security</h2>
+					<ul>
+						<li>Security Sandbox</li>
+						<li>Group Policy</li>
+						<li>Signed Code Packages</li>
+						<li>Strong Application Identity</li>
+					</ul>
+
+				</section>
 
 				<section>
 						<h2>Hyperblotter</h2>
-						<img src="img/hyperb.png" id="hyperblotter">
+						<a href="fins://cdn.openfin.co/demos/hyperblotter/app.json"><img src="img/hyperb.png"></a>
+						<div style="font-size:12pt;">fins://cdn.openfin.co/demos/hyperblotter/app.json</div>
 				</section>
 				<section data-background-size="50%" data-background-image="img/stopwatch.png">
 						<h2>"Hello World"<h2>
 						<h3>in 5 minutes or less</h3>
 				</section>
+				<section>
 				<section data-background-size="30%" data-background-position="top right" data-background-image="img/stopwatch.png">
 					<h2>OpenFin CLI</h2>
-
-					<ol>
-						<li>Install NodeJS</li>
-						<li style="margin-top:1em;">Install OpenFin CLI
-								<pre style="margin-left:0px;"><code class="hljs" style="width:800px;">
+				</section>
+				<section>
+					<h4>Install NodeJS</h4>
+				</section>
+				<section>
+					<h4>Install OpenFin CLI</h4>
+								<pre><code class="hljs" style="width:800px;">
 npm install -g openfin-cli
 								</code></pre>
 								<a class="external" data-link="https://github.com/openfin/openfin-cli">https://github.com/openfin/openfin-cli</a>
-						</li>
-						<li style="margin-top:1em;">
-							Use the CLI to open a URL in the runtime
-							<pre style="margin-left:0px;"><code class="hljs" style="width:800px;">
+				</section>
+				<section>
+						<h4>Use the CLI to open a URL in the runtime</h4>
+							<pre><code class="hljs" style="width:800px;">
 openfin --launch --config https://demoappdirectory.openf.in/desktop/config/apps/OpenFin/HelloOpenFin/app.json
 							</code></pre>
-						</li>
 				</section>
+			</section>
+			<section>
 				<section data-background-size="30%" data-background-position="top right" data-background-image="img/puzzle.png">
 					<h2>Integrating your application</h2>
-
-					<ol>
-						<li>Set up your local app
-							<pre style="margin-left:0px;"><code class="hljs" style="width:800px;">
+				</section>
+				<section>
+					<h4>Set up your local app</h4>
+					<pre><code class="hljs" style="width:800px;">
 npm init
 npm install express
 create app.js
 						</code></pre>
-
-						</li>
-						<li style="margin-top:1em;">Use the CLI to generate a config
-								<pre style="margin-left:0px;"><code class="hljs" style="width:800px;">
+					</section>
+					<section>
+						<h4>Use the CLI to generate a config</h4>
+								<pre><code class="hljs" style="width:800px;">
 openfin --config app.json --name myAppName --url http://localhost:3000
 						</code></pre>
-						</li>
-						<li style="margin-top:1em;">
-							Launch using the generated app.config file
-							<pre style="margin-left:0px;"><code class="hljs" style="width:800px;">
+					</section>
+					<section>
+						<h4>Launch the generated app.config file</h4>
+							<pre><code class="hljs" style="width:800px;">
 openfin --launch --config app.json
 						</code></pre>
-						</li>
 				</section>
+			</section>
 				<section>
 					<h2>Generated Config</h2>
 
@@ -300,29 +251,6 @@ openfin --launch --config app.json
 
 				</section>
 
-				<section>
-					<h2>Generating App Boilerplate</h2>
-					<h3> with Yoeman</h3>
-
-					<ol>
-						<li>Install the tools
-							<pre style="margin-left:0px;"><code class="hljs" style="width:800px;">
-npm install -g yo grunt grunt-cli generator-openfin
-						</code></pre>
-
-						</li>
-						<li style="margin-top:1em;">Initialize
-								<pre style="margin-left:0px;"><code class="hljs" style="width:800px;">
-yo openfin
-						</code></pre>
-						</li>
-						<li style="margin-top:1em;">
-							Run
-							<pre style="margin-left:0px;"><code class="hljs" style="width:800px;">
-grunt serve
-						</code></pre>
-						</li>
-				</section>
 			<section>
 				<h2>Application Manifest</h2>
 				<p style="font-size:16pt;"">The OpenFin Runtime requires each application to provide a JSON formatted configuration file. This configuration file defines the visual properties of the app, its dependencies, and other deployment settings. </p>
@@ -390,7 +318,6 @@ grunt serve
 					<li>The OpenFin APIs only cover what browsers don’t.</li>
 					<li>The amount of OpenFin specific code in an app is limited.</li>
 					<li>OpenFin doesn’t limit what frameworks you can use.</li>
-					<li>Wrap API touch points using the framework of choice.</li>
 				</ul>
 			</section>
 
@@ -402,7 +329,6 @@ grunt serve
 					<section>
 
 							<h3>New Window</h3>
-							<div>Create a child window in the same process</div>
 							<pre><code class="hljs new-win" contenteditable>
 var childWindow = new fin.desktop.Window({
     name: "childWindow",
@@ -413,9 +339,7 @@ var childWindow = new fin.desktop.Window({
     defaultLeft: 300,
     frame: true,
     resize: false,
-    windowState: "normal",
     autoShow: true,
-
 		saveWindowState:false
 }, function () {
     console.log("The window has successfully been created");
@@ -444,12 +368,14 @@ var childWindow = new fin.desktop.Window({
     defaultLeft: 300,
     frame: true,
     resize: false,
-    windowState: "normal",
-    autoShow: true
+    autoShow: true,
+		saveWindowState:false
 }, function () {
     console.log("The window has successfully been created");
-		let win = childWindow.getNativeWindow();
-		win.document.body.appendChild(header);
+		window.setTimeout(function(){
+			let win = childWindow.getNativeWindow();
+			win.document.body.appendChild(header);
+		},1000);
 }, function () {
     console.log("Error creating window");
 });
@@ -478,15 +404,15 @@ var childWindow = new fin.desktop.Window({
     defaultLeft: 300,
     frame: true,
     resize: false,
-    windowState: "normal",
     autoShow: true
 }, function () {
     console.log("The window has successfully been created");
 		let win = childWindow.getNativeWindow();
 		win.document.body.appendChild(injectscript);
 		win.document.body.appendChild(showBut);
-		showBut.addEventListener("click",function(){fin.desktop.Window.getCurrent().getParentWindow().show();});
-}, function () {
+		showBut.addEventListener("click",function(){
+			fin.desktop.Window.getCurrent().getParentWindow().show();});
+    }, function () {
     console.log("Error creating window");
 });
 							</code></pre>
@@ -502,9 +428,6 @@ var childWindow = new fin.desktop.Window({
     defaultHeight: 320,
     defaultTop: 10,
     defaultLeft: 300,
-    frame: false,
-    resize: false,
-    windowState: "normal",
     autoShow: true,
 		saveWindowState:false,
 		opacity:0
@@ -549,7 +472,7 @@ var childWindow = new fin.desktop.Window({
 					</section>
 					<section>
 							<h3>Tear-outs</h3>
-							<div class="tearout" draggable>Tear this Content out into a new Window!</div>
+							<div style="border:1px dotted white;width: 90%;margin-top: 20px;margin-right: auto;margin-bottom: 20px;margin-left: auto;"><img height="25" width="25" src="img/tearout.png" draggable class="tearout" style="float: left;margin-top: 0px;background-color:white;"><span class="tearout-content">Tear this Content out into a new Window!</span></div>
 							<pre><code class="hljs demo-tearout" contenteditable>
 var root = document.location.protocol + "//" + document.location.host;
 var tearoutWindow = new fin.desktop.Window({
@@ -557,7 +480,7 @@ var tearoutWindow = new fin.desktop.Window({
 	url: root + "/tearout.html",
 	frame:false,
 	autoShow:false,
-	"defaultHeight": 150,
+	"defaultHeight": 125,
 	"defaultWidth": 500}, function () {
 		},function(err){
 });
@@ -566,7 +489,7 @@ document.querySelector(".tearout").addEventListener("dragend",function(event){
 	event.stopPropagation();
 	event.preventDefault();
 	var tearout = tearoutWindow.getNativeWindow();
-	tearout.document.getElementById("content").innerText = event.target.textContent;
+	tearout.document.getElementById("content").innerText = document.querySelector(".tearout-content").textContent;
 	tearoutWindow.moveTo(event.screenX, event.screenY);
 	tearoutWindow.show();
 	tearoutWindow.bringToFront();
@@ -588,7 +511,6 @@ var childWindow = new fin.desktop.Window({
     defaultLeft: 300,
     frame: true,
     resize: false,
-    windowState: "normal",
     autoShow: true,
 		saveWindowState:false
 }, function () {
@@ -673,9 +595,10 @@ fin.desktop.System.getMonitorInfo(function (monitorInfo) {
 });
 							</code></pre>
 							<button class="demo-button" id="system-monitor">run demo</button>
-							<pre><code class="hljs" id="monitorInfo" contenteditable>
-							</code></pre>
+
+						<div id="monitorInfo" class="api-output" contenteditable></div>
 					</section>
+
 					<section>
 							<h3>System Info</h3>
 							<pre><code class="hljs system-process" contenteditable>
@@ -688,8 +611,24 @@ fin.desktop.System.getProcessList(function (list) {
 });
 							</code></pre>
 							<button class="demo-button" id="system-process">run demo</button>
-							<pre><code class="hljs" id="processInfo" contenteditable></code></pre>
+							<div id="processInfo" class="api-output" contenteditable></div>
 					</section>
+
+					<section>
+							<h3>Clipboard Access</h3>
+							<pre><code class="hljs system-clip" contenteditable>
+fin.desktop.Window.getCurrent().getSnapshot(function (base64Snapshot) {
+	var src = "data:image/png;base64," + base64Snapshot;
+	fin.desktop.System.Clipboard.writeText("<img src=" + src + ">", function () {
+		console.log("successful");
+	},function (err) {
+		console.log("failure: " + err);
+	});
+});
+							</code></pre>
+							<button class="demo-button" id="system-clip">run demo</button>
+					</section>
+
 					<section>
 							<h3>Launching an External Process</h3>
 							<pre><code class="hljs system-external" contenteditable>
@@ -710,6 +649,7 @@ fin.desktop.System.launchExternalProcess({
 
 							<button class="demo-button" id="system-external">run demo</button>
 					</section>
+				</section>
 		<!--			<section>
 							<h2>Logging</h2>
 							<pre><code class="hljs system-log" contenteditable>
@@ -723,22 +663,8 @@ fin.desktop.System.log("info",
 							</code></pre>
 							<button class="demo-button" id="system-log">run demo</button>
 					</section>-->
-					<section>
-							<h3>Clipboard Access</h3>
-							<pre><code class="hljs system-clip" contenteditable>
-fin.desktop.Window.getCurrent().getSnapshot(function (base64Snapshot) {
-	var src = "data:image/png;base64," + base64Snapshot;
-	fin.desktop.System.Clipboard.writeText("<img src=" + src + ">", function () {
-		console.log("successful");
-	},function (err) {
-		console.log("failure: " + err);
-	});
-});
 
-							</code></pre>
-							<button class="demo-button" id="system-clip">run demo</button>
-					</section>
-			</section>
+
 			<!-- end System Demos -->
 
 			<!-- Application Demos -->
@@ -747,7 +673,7 @@ fin.desktop.Window.getCurrent().getSnapshot(function (base64Snapshot) {
 					<h1>Application</h1>
 				</section>
 				<section>
-						<h2>Launching an Application</h2>
+						<h3>Launching an Application</h3>
 						<pre><code class="hljs app-launch" contenteditable>
 var app = new fin.desktop.Application({
     url: "http://demoappdirectory.openf.in/desktop/config/apps/OpenFin/HelloOpenFin/index.html",
@@ -772,7 +698,7 @@ var app = new fin.desktop.Application({
 						<button class="demo-button" id="app-launch">run demo</button>
 				</section>
 				<section>
-						<h2>Managing Child Applications</h2>
+						<h3>Managing Child Applications</h3>
 						<pre><code class="hljs app-manage">
 var app = new fin.desktop.Application({
     url: "http://demoappdirectory.openf.in/desktop/config/apps/OpenFin/HelloOpenFin/index.html",
@@ -800,7 +726,7 @@ document.getElementById("app-closebutton").addEventListener("click",function(){
 							<button class="demo-button" id="app-closebutton">close app</button>
 				</section>
 				<section>
-						<h2>Restarting</h2>
+						<h3>Restarting</h3>
 						<pre><code class="hljs app-restart" contenteditable>
 var app = new fin.desktop.Application({
     url: "http://demoappdirectory.openf.in/desktop/config/apps/OpenFin/HelloOpenFin/index.html",
@@ -840,7 +766,7 @@ document.getElementById("app-restartbutton").addEventListener("click",function()
 					<h1>Notifications</h1>
 				</section>
 				<section>
-						<h2>Creating Desktop Notifications</h2>
+						<h3>Creating Desktop Notifications</h3>
 						<pre><code class="hljs noti-create" contenteditable>
 var notification = fin.desktop.Notification({
     url: "notification.html",
@@ -850,7 +776,7 @@ var notification = fin.desktop.Notification({
 						<button class="demo-button" id="noti-create">run demo</button>
 				</section>
 				<section>
-						<h2>Notification Callbacks</h2>
+						<h3>Notification Callbacks</h3>
 						<pre><code class="hljs noti-callback" contenteditable>
 var callback = function(message){
 	document.getElementById("noti-callback-msg").innerText = message;
@@ -876,8 +802,8 @@ var notification = new fin.desktop.Notification({
 					<h1>Inter-App Bus</h1>
 				</section>
 				<section>
-						<h2>Topic Messages</h2>
-						<pre><code class="hljs bus-topic" contenteditable>
+						<h3>Topic Messages</h3>
+						<pre><code class="hljs bus-topic"  style="max-height:300px;" contenteditable>
 var callback = function(msg){
 	document.getElementById("bus-topic-msg").innerHTML += JSON.stringify(msg);
 	hljs.highlightBlock(document.getElementById("bus-topic-msg"));
@@ -897,11 +823,11 @@ document.getElementById("bus-unsub").addEventListener("click",function(){
 						</code></pre>
 						<button class="demo-button" id="bus-topic">run demo</button>
 						<button class="demo-button" id="bus-unsub">unsubscribe</button>
-						<pre><code class="hljs" id="bus-topic-msg" contenteditable></code></pre>
+						<div class="api-output" id="bus-topic-msg" contenteditable></div>
 				</section>
 				<section>
-						<h2>Direct Messages</h2>
-						<pre><code class="hljs bus-direct" contenteditable>
+						<h3>Direct Messages</h3>
+						<pre><code class="hljs bus-direct" style="max-height:300px;" contenteditable>
 
 var callback = function(msg){
 	document.getElementById("bus-direct-msg").innerHTML += JSON.stringify(msg);
@@ -951,7 +877,7 @@ document.getElementById("d-bus-unsub").addEventListener("click",function(){
 						<button class="demo-button" id="d-bus-unsub">unsubscribe</button>
 						<button class="demo-button" id="d-bus-send">send</button>
 						<button class="demo-button" id="bus-direct">run demo</button>
-						<pre><code class="hljs" id="bus-direct-msg" contenteditable></code></pre>
+						<div class="api-output" id="bus-direct-msg" contenteditable style="height:100px;"></div>
 				</section>
 			</section>
 			<!-- end Inter-App Bus Demos  -->
@@ -966,11 +892,11 @@ document.getElementById("d-bus-unsub").addEventListener("click",function(){
 				</ul>
 				<img src="img/poc.png">
 			</section>
+			<section>
+				<h2>Thank You</h2>
+			</section>
 
-  	<script src="bower_components/d3/d3.js" charset="utf-8"></script>
-		<script src="js/utils.js"></script>
-		<script src="js/cpu-charts.js"></script>
-		<script src="js/animations.js"></script>
+
 		<script src="js/slideFunctions.js"></script>
 		<script src="bower_components/reveal.js/lib/js/head.min.js"></script>
 		<script src="bower_components/reveal.js/js/reveal.js"></script>

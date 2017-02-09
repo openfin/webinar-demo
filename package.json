@@ -1,34 +1,22 @@
 {
-    "name": "OpenFinTrainingDemo",
+    "name": "OpenFinWebinar",
     "version": "0.0.1",
-    "description": "OpenFin Training Demos",
-    "main": "grunt serve",
-    "scripts": {
-        "test": "grunt test",
-        "deploy": "bower install && aws s3 cp public/ s3://cdn.openfin.co/demos/hello/ --recursive --cache-control max-age=60",
-        "start": "grunt serve",
-        "postinstall": "bower install"
-    },
+    "description": "OpenFin Webinar Demo",
     "repository": {
         "type": "git",
-        "url": "https://github.com/openfin/openfin-training-demo"
+        "url": "https://github.com/openfin/webinar-demo"
     },
-    "author": "",
+    "author": "Nicholas Kolba",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/openfin/HelloOpenFin/issues"
+        "url": "https://github.com/openfin/webinar-demo/issues"
     },
-    "homepage": "https://github.com/openfin/HelloOpenFin",
-    "dependencies": {
-        "express": "^4.2.0",
-        "grunt": "^0.4",
-        "grunt-cli": "^0.1",
-        "grunt-contrib-jshint": "^0.10",
-        "grunt-contrib-watch": "^0.6",
-        "grunt-jsbeautifier": "^0.2.7",
-        "grunt-contrib-connect": "^0.8.0",
-        "connect-livereload": "^0.4.0",
-        "bower": "^1.3.12",
-        "grunt-openfin": ">=1.0.2"
-    }
+    "homepage": "https://github.com/openfin/webinar-demo",
+    "scripts": {
+       "start": "http-server -c-1"
+     },
+     "devDependencies": {
+       "http-server": "0.8.5",
+       "openfin-cli": "1.1.5"
+     }
 }

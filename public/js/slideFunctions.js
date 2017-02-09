@@ -12,39 +12,6 @@ function doBlur() {
     });
 }
 
-function launchHyperblotter() {
-    var hyperb = new fin.desktop.Application({
-        url: "http://cdn.openfin.co/demos/hyperblotter/index.html",
-        uuid: "hyperblotter-demo",
-        applicationIcon: "http://cdn.openfin.co/demos/hyperblotter/images/hyperblotter_icon.ico",
-        name: "Hyperblotter",
-        mainWindowOptions: {
-            "autoShow": true,
-            "defaultWidth": 360,
-            "maxWidth": 360,
-            "minWidth": 360,
-            "maxHeight": 90,
-            "defaultHeight": 90,
-            "minHeight": 90,
-            "defaultTop": 50,
-            "defaultLeft": 10,
-            "resizable": false,
-            "maximizable": false,
-            "frame": false,
-            "alwaysOnTop": true,
-            "cornerRounding": {
-                "width": 5,
-                "height": 5
-            }
-        }
-    }, function() {
-        console.log("Application successfully created");
-        hyperb.run();
-    }, function() {
-        console.log("Error creating application");
-    });
-}
-
 function externalLink(event) {
     var url = event.target.getAttribute("data-link");
     fin.desktop.System.openUrlWithBrowser(url);
@@ -144,10 +111,6 @@ var mInfo;
         mainWindow = fin.desktop.Window.getCurrent();
         //set event handlers for the different buttons.
         var setEventHandlers = function() {
-
-            //hyperblotter link
-            document.getElementById("hyperblotter").addEventListener("click", launchHyperblotter);
-
             //demos
             var demos = document.querySelectorAll('.demo-button');
 
