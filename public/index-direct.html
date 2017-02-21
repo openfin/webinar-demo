@@ -1,16 +1,29 @@
-<script>
+<html>
+  <head>
+    <script>
 
-var application = fin.desktop.Application.getCurrent();
+    var application = fin.desktop.Application.getCurrent();
 
-application.getParentUuid(function (parentUuid) {
-  fin.desktop.InterApplicationBus.subscribe("*","direct-topic",function(msg){
-    document.getElementById("message").value =  (document.getElementById("message").value + JSON.stringify(msg));
-  });
-  fin.desktop.InterApplicationBus.send(parentUuid,"direct-topic", "child loaded");
-});
+    application.getParentUuid(parentUuid =>{
+      fin.desktop.InterApplicationBus.subscribe("*","direct-topic",function(msg){
+        document.getElementById("message").value =  (document.getElementById("message").value + JSON.stringify(msg));
+      });
+      fin.desktop.InterApplicationBus.send(parentUuid,"direct-topic", "child loaded");
+      document.getElementById("send").addEventListener("click",e =>{
+          fin.desktop.InterApplicationBus.send(parentUuid,"direct-topic",document.getElementById("out").value);
+      })
+    });
+
+    </script>
+  </head>
+  <body style="background-color:#222;color:#eee;font-family:arial,sans-serif;">
+    <div class="content" style="margin:35px;">
+    <h3 style="text-align:center;">Incoming Messages</h3>
+    <textarea id="message" style="height:300px;width:300px;"></textarea>
+    <h3 style="text-align:center;">Send a Message</h3>
+    <input id="out" style="width:250px;"><button id="send" style="width:50px;">send</button>
 
 
-
-
-</script>
-<textarea id="message" style="height:400px;width:300px;"></textarea>
+  </div>
+  </body>
+</html>

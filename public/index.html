@@ -617,13 +617,14 @@ fin.desktop.System.getProcessList(function (list) {
 					<section>
 							<h3>Clipboard Access</h3>
 							<pre><code class="hljs system-clip" contenteditable>
-fin.desktop.Window.getCurrent().getSnapshot(function (base64Snapshot) {
-	var src = "data:image/png;base64," + base64Snapshot;
-	fin.desktop.System.Clipboard.writeText("<img src=" + src + ">", function () {
-		console.log("successful");
-	},function (err) {
-		console.log("failure: " + err);
-	});
+fin.desktop.Window.getCurrent().getSnapshot(s => {
+  fin.desktop.System.Clipboard.writeText(`<img src="data:image/png;base64,${s}">`,
+  ()=>{
+    console.log("successful");
+  },
+  (err)=>{
+    console.log(`failure: ${err}`);
+  });
 });
 							</code></pre>
 							<button class="demo-button" id="system-clip">run demo</button>
@@ -828,10 +829,8 @@ document.getElementById("bus-unsub").addEventListener("click",function(){
 				<section>
 						<h3>Direct Messages</h3>
 						<pre><code class="hljs bus-direct" style="max-height:300px;" contenteditable>
-
 var callback = function(msg){
-	document.getElementById("bus-direct-msg").innerHTML += JSON.stringify(msg);
-	hljs.highlightBlock(document.getElementById("bus-direct-msg"));
+	document.getElementById("bus-direct-msg").innerHTML += msg + "<br>";
 };
 
 fin.desktop.InterApplicationBus.subscribe("direct-88","direct-topic",callback);
@@ -849,29 +848,17 @@ var app = new fin.desktop.Application({
         defaultLeft: 300,
         autoShow: true
     }
-}, function () {
-    app.run();
-
-
-}, function () {
-    console.log("Error creating application");
-});
-
+}, () => {app.run();});
 
 document.getElementById("d-bus-send").addEventListener("click",function(){
 	fin.desktop.InterApplicationBus.send("direct-88","direct-topic", {
 		field1: "value1",
 		field2: "value2"
-	},function(){
-		console.log("message sent");
-	},function(e){
-		console.log("error",e);
-	}
-	);
+	});
 });
 
 document.getElementById("d-bus-unsub").addEventListener("click",function(){
-	fin.desktop.InterApplicationBus.unsubscribe("*","a topic", callback);
+	fin.desktop.InterApplicationBus.unsubscribe("direct-88","direct-topic", callback);
 });
 						</code></pre>
 						<button class="demo-button" id="d-bus-unsub">unsubscribe</button>
