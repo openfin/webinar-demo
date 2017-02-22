@@ -12,6 +12,9 @@ Documentation for the OpenFin Runtime API can be found [here](https://openfin.co
 $ npm install
 ```
 ```sh
+$ bower install
+```
+```sh
 $ npm start
 ```
 ```sh
