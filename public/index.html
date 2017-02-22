@@ -463,12 +463,10 @@ var tearoutWindow = new fin.desktop.Window({
 	url: root + "/tearout.html",
 	frame:false,
 	autoShow:false,
-	"defaultHeight": 125,
-	"defaultWidth": 500}, function () {
-		},function(err){
-});
+	"defaultHeight": 75,
+	"defaultWidth": 500});
 
-document.querySelector(".tearout").addEventListener("dragend",function(event){
+document.querySelector(".tearout").addEventListener("dragend",event =>{
 	event.stopPropagation();
 	event.preventDefault();
 	var tearout = tearoutWindow.getNativeWindow();
