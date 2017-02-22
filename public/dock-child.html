@@ -1,17 +1,40 @@
+<html>
+<head>
+  <style>
+  body {
+    font-family:arial,sans-serif;
+    background-color:#222;
+    color:#eee;
+  }
+  </style>
+</head>
+<body>
 <h1 id="message">This is a dockable child window.</h1>
 
-<button id="undock" style="float:right;">undock</button>
-
+<button id="undock" style="position:absolute;bottom:10px;right:10px;">undock</button>
+</body>
 <script>
 
   function undock(){
-    fin.desktop.Window.getCurrent().leaveGroup();
+    var win = fin.desktop.Window.getCurrent();
+    win.leaveGroup();
+    win.getBounds(b =>{
+      win.animate({
+        position:{
+          left:(b.left - 40),
+          top:(b.top -10),
+          duration:300
+        }
+      },
+      {interrupt:false}
+    );
+    });
+
   }
 
-  function closeWin(){
-    fin.desktop.Window.getCurrent().close();
-  }
+
 
   document.getElementById("undock").addEventListener("click",undock);
 
 </script>
+</html>

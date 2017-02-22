@@ -340,10 +340,10 @@ var childWindow = new fin.desktop.Window({
     frame: true,
     resize: false,
     autoShow: true,
-		saveWindowState:false
-}, function () {
+    saveWindowState:false
+}, () => {
     console.log("The window has successfully been created");
-}, function () {
+}, () => {
     console.log("Error creating window");
 });
 </pre></code>
@@ -356,9 +356,6 @@ var childWindow = new fin.desktop.Window({
 							<h3>Injecting Content</h3>
 
 							<pre><code class="inject-content hljs" contenteditable>
-var header = document.createElement("h1");
-header.innerText = "Hello World";
-
 var childWindow = new fin.desktop.Window({
     name: "childWindow",
     url: "child.html",
@@ -366,18 +363,15 @@ var childWindow = new fin.desktop.Window({
     defaultHeight: 320,
     defaultTop: 10,
     defaultLeft: 300,
-    frame: true,
-    resize: false,
     autoShow: true,
-		saveWindowState:false
-}, function () {
-    console.log("The window has successfully been created");
-		window.setTimeout(function(){
-			let win = childWindow.getNativeWindow();
-			win.document.body.appendChild(header);
+    saveWindowState:false
+}, () => {
+    window.setTimeout(() => {
+      let h = document.createElement("h1");
+      h.innerText = "Hello World";
+      let win = childWindow.getNativeWindow();
+      win.document.body.appendChild(h);
 		},1000);
-}, function () {
-    console.log("Error creating window");
 });
 
 							</pre></code>
@@ -386,36 +380,29 @@ var childWindow = new fin.desktop.Window({
 					<section>
 							<h3>Child Window Interaction</h3>
 							<pre><code class="win-interact hljs" contenteditable>
-
-var injectscript = document.createElement("script");
-var scrpt = `
-var pWin = fin.desktop.Window.getCurrent().getParentWindow();
-pWin.hide();`;
-injectscript.innerText = scrpt;
-var showBut = document.createElement("button");
-showBut.innerText = "show parent";
-
 var childWindow = new fin.desktop.Window({
     name: "childWindow",
-    url: "child.html",
+    url: "child2.html",
     defaultWidth: 320,
     defaultHeight: 320,
     defaultTop: 10,
     defaultLeft: 300,
-    frame: true,
-    resize: false,
     autoShow: true
-}, function () {
-    console.log("The window has successfully been created");
-		let win = childWindow.getNativeWindow();
-		win.document.body.appendChild(injectscript);
-		win.document.body.appendChild(showBut);
-		showBut.addEventListener("click",function(){
-			fin.desktop.Window.getCurrent().getParentWindow().show();});
-    }, function () {
-    console.log("Error creating window");
+});
+
+document.getElementById("win-interact-move").addEventListener("click",function(){
+   childWindow.moveBy(50,50);
+});
+document.getElementById("win-interact-hide").addEventListener("click",function(){
+   childWindow.hide();
+});
+document.getElementById("win-interact-show").addEventListener("click",function(){
+   childWindow.show();
 });
 							</code></pre>
+							<button id="win-interact-move" class="demo-button">move child</button>
+							<button id="win-interact-hide" class="demo-button">hide child</button>
+							<button id="win-interact-show" class="demo-button">show child</button>
 							<button id="win-interact" class="demo-button">run demo</button>
 					</section>
 					<section>
@@ -429,41 +416,37 @@ var childWindow = new fin.desktop.Window({
     defaultTop: 10,
     defaultLeft: 300,
     autoShow: true,
-		saveWindowState:false,
-		opacity:0
-}, function () {
-    console.log("The window has successfully been created");
-		var win = childWindow;
-		win.animate({
-			opacity:{
-				opacity:1,
-				duration:1000
-			}},
-			{
-				interrupt:false
-			},
-			function(evt){
-				console.log("Window opacity animation complete");
-				win.animate({
-					position:{
-						left:10,
-						top:10,
-						duration:1000
-					},
-					size:{
-						width:500,
-						height:500,
-						duration:1000
-					}
-				},
-					{
-						interrupt:false
-					},
-					function(evt){
-							console.log("Window position and size animation complete");
-					}
-				);
-		});
+    saveWindowState:false,
+    opacity:0
+}, () => {
+    var win = childWindow;
+    win.animate({
+      opacity:{
+        opacity:1,
+        duration:1000
+      }},
+      {interrupt:false},
+      function(evt){
+        console.log("Window opacity animation complete");
+        win.animate({
+          position:{
+            left:10,
+            top:10,
+            duration:1000
+         },
+         size:{
+            width:500,
+            height:500,
+            duration:1000
+           }
+         },
+         {interrupt:false,
+				 tween:"ease-out-bounce"},
+         function(evt){
+            console.log("Window position and size animation complete");
+         }
+       );
+     });
 }, function () {
     console.log("Error creating window");
 });
@@ -503,43 +486,41 @@ document.querySelector(".tearout").addEventListener("dragend",function(event){
 							<pre><code class="hljs demo-dock" contenteditable>
 var parentWindow = fin.desktop.Window.getCurrent();
 var childWindow = new fin.desktop.Window({
-    name: "dockWindow",
-    url: "dock-child.html",
-    defaultWidth: 320,
-    defaultHeight: 320,
-    defaultTop: 10,
-    defaultLeft: 300,
-    frame: true,
-    resize: false,
-    autoShow: true,
-		saveWindowState:false
-}, function () {
-    childWindow.addEventListener("bounds-changed",boundsChanged);
-}, function () {
-    console.log("Error creating window");
+   name: "dockWindow",
+   url: "dock-child.html",
+   defaultWidth: 320,
+   defaultHeight: 320,
+   defaultTop: 10,
+   defaultLeft: 300,
+   frame: true,
+   resize: false,
+   autoShow: true,
+   saveWindowState:false
+}, () =>{
+   childWindow.addEventListener("bounds-changed",boundsChanged);
+}, () =>{
+   console.log("Error creating window");
 });
 
 function boundsChanged(event){
-
-	parentWindow.getBounds(function(bounds){
-		isDockable(decorateBounds(bounds),decorateBounds(event), function(r){
-			if (r){
-			 childWindow.animate({
-				 position:{
-				 left:(bounds.left - (event.width-10)),
-				 top:bounds.top,
-				 duration:500
-				}
-			},
-			{
-			  interrupt:false
-			},
-			function(){
-				childWindow.joinGroup(parentWindow);
-			});
-
-		}
-  });
+   parentWindow.getBounds(function(bounds){
+      isDockable(decorateBounds(bounds),decorateBounds(event), function(r){
+      if (r){
+         childWindow.animate({
+            position:{
+            left:(bounds.left - (event.width-10)),
+            top:bounds.top,
+            duration:500
+			   }
+		  },
+      {
+         interrupt:false
+      },
+         function(){
+            childWindow.joinGroup(parentWindow);
+         });
+      }
+    });
 	});
 }
 
@@ -722,31 +703,7 @@ var app = new fin.desktop.Application({
 document.getElementById("app-closebutton").addEventListener("click",function(){
 	app.close();
 });
-						</code></pre>
-						<button class="demo-button" id="app-manage">run demo</button>
-							<button class="demo-button" id="app-closebutton">close app</button>
-				</section>
-				<section>
-						<h3>Restarting</h3>
-						<pre><code class="hljs app-restart" contenteditable>
-var app = new fin.desktop.Application({
-    url: "http://demoappdirectory.openf.in/desktop/config/apps/OpenFin/HelloOpenFin/index.html",
-    uuid: "foo-88",
-    applicationIcon: "http://demoappdirectory.openf.in/desktop/config/apps/OpenFin/HelloOpenFin/img/openfin.ico",
-    name: "HelloOpenFin",
-    mainWindowOptions: {
-        defaultHeight: 600,
-        defaultWidth: 400,
-        defaultTop: 300,
-        defaultLeft: 300,
-        autoShow: true
-    }
-}, function () {
-    app.run();
 
-}, function () {
-    console.log("Error creating application");
-});
 document.getElementById("app-restartbutton").addEventListener("click",function(){
 	app.restart(function () {
 			console.log("You will not read this.");
@@ -755,9 +712,11 @@ document.getElementById("app-restartbutton").addEventListener("click",function()
 	});
 });
 						</code></pre>
-						<button class="demo-button" id="app-restart">run demo</button>
+						<button class="demo-button" id="app-manage">run demo</button>
 						<button class="demo-button" id="app-restartbutton">restart app</button>
+						<button class="demo-button" id="app-closebutton">close app</button>
 				</section>
+
 			</section>
 			<!-- end Application Demos -->
 
@@ -846,7 +805,8 @@ var app = new fin.desktop.Application({
         defaultWidth: 400,
         defaultTop: 300,
         defaultLeft: 300,
-        autoShow: true
+        autoShow: true,
+        saveWindowState:false
     }
 }, () => {app.run();});
 
@@ -864,7 +824,7 @@ document.getElementById("d-bus-unsub").addEventListener("click",function(){
 						<button class="demo-button" id="d-bus-unsub">unsubscribe</button>
 						<button class="demo-button" id="d-bus-send">send</button>
 						<button class="demo-button" id="bus-direct">run demo</button>
-						<div class="api-output" id="bus-direct-msg" contenteditable style="height:100px;"></div>
+						<div class="api-output hljs json" id="bus-direct-msg" contenteditable style="height:100px;"></div>
 				</section>
 			</section>
 			<!-- end Inter-App Bus Demos  -->
