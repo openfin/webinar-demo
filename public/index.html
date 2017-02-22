@@ -400,54 +400,65 @@ document.getElementById("win-interact-show").addEventListener("click",function()
    childWindow.show();
 });
 							</code></pre>
+							<button id="win-interact" class="demo-button">run demo</button>
 							<button id="win-interact-move" class="demo-button">move child</button>
 							<button id="win-interact-hide" class="demo-button">hide child</button>
 							<button id="win-interact-show" class="demo-button">show child</button>
-							<button id="win-interact" class="demo-button">run demo</button>
 					</section>
 					<section>
 							<h2>Animating Windows</h2>
 							<pre><code class="hljs win-animate" contenteditable>
 var childWindow = new fin.desktop.Window({
-    name: "childWindow",
-    url: "child.html",
-    defaultWidth: 320,
-    defaultHeight: 320,
-    defaultTop: 10,
-    defaultLeft: 300,
-    autoShow: true,
-    saveWindowState:false,
-    opacity:0
+  name: "childWindow",
+  url: "child.html",
+  defaultWidth: 320,
+  defaultHeight: 320,
+  defaultTop: 600,
+  defaultLeft: 800,
+  autoShow: true,
+  saveWindowState:false
 }, () => {
-    var win = childWindow;
-    win.animate({
-      opacity:{
-        opacity:1,
-        duration:1000
-      }},
-      {interrupt:false},
-      function(evt){
-        console.log("Window opacity animation complete");
-        win.animate({
-          position:{
-            left:10,
-            top:10,
-            duration:1000
-         },
-         size:{
-            width:500,
-            height:500,
-            duration:1000
-           }
-         },
-         {interrupt:false,
-				 tween:"ease-out-bounce"},
-         function(evt){
-            console.log("Window position and size animation complete");
-         }
-       );
-     });
-}, function () {
+  var win = childWindow;
+  win.animate({
+    position:{
+      left:10,
+      top:10,
+      duration:2000
+    }},
+    {interrupt:false, tween:"ease-out-bounce"},
+		function(evt){
+		  console.log("Window position animation complete");
+		  win.animate({
+			  size:{
+          width:500,
+          height:500,
+          duration:1000
+        }},
+        {interrupt:false, tween:"ease-in"},
+        function(evt){
+          console.log("Window size animation complete");
+          //set opacity animation
+          win.addEventListener("bounds-changing",function(){
+	          win.animate({
+              opacity:{
+                opacity:.5,
+                duration:300
+             }},
+             {interrupt:true})
+         });
+
+         win.addEventListener("bounds-changed",function(){
+	         win.animate({
+	           opacity:{
+               opacity:1,
+               duration:300
+           }},
+           {interrupt:true})
+         });
+      });
+		});
+
+  }, function () {
     console.log("Error creating window");
 });
 </code></pre>
