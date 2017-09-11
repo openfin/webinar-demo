@@ -3,11 +3,11 @@
     "startup_app": {
         "name": "OpenFin Webinar",
         "description": "Webinar presentation for OpenFin - first presented 2/8/17",
-        "url": "http://localhost:8080/index.html",
+        "url": "https://openfin.github.io/webinar-demo/public/index.html",
         "uuid": "OpenFin Webinar-udbrf2z9sehilik9",
         "autoShow": false,
         "defaultCentered": true,
-        "applicationIcon": "http://localhost:8080/img/openfin.ico",
+        "applicationIcon": "http://openfin.github.io/webinar-demo/public/img/openfin.ico",
         "frame": true,
         "defaultHeight": 300,
         "defaultWidth": 300
@@ -20,6 +20,6 @@
         "company": "OpenFin",
         "description": "Openfin Webinar",
         "name": "Openfin Webinar",
-        "icon": "http://localhost:8080/img/openfin.ico"
+        "icon": "http://openfin.github.io/webinar-demo/public/img/openfin.ico"
     }
 }
