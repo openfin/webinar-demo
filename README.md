@@ -6,7 +6,20 @@ This Webinar provides an overview of the OpenFin platform and a hands-on demonst
 
 Documentation for the OpenFin Runtime API can be found [here](https://openfin.co/developers/javascript-api/).
 
-## Setup
+## Quick Launch
+
+#### Windows
+
+[Installer](https://dl.openfin.co/services/download?fileName=OpenFin%20Webinar&config=https://openfin.github.io/webinar-demo/app.json)
+
+#### Mac
+
+```bash
+npm install --global openfin-cli
+openfin --launch --config https://openfin.github.io/webinar-demo/app.json
+```
+
+## Local Setup
 
 ```sh
 $ npm install
