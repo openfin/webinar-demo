@@ -13,10 +13,10 @@
     },
     "homepage": "https://github.com/openfin/webinar-demo",
     "scripts": {
-       "start": "http-server -c-1"
-     },
-     "devDependencies": {
-       "http-server": "0.8.5",
-       "openfin-cli": "1.1.5"
-     }
+        "start": "http-server -c-1"
+    },
+    "devDependencies": {
+        "http-server": "0.8.5",
+        "openfin-cli": "1.1.5"
+    }
 }
