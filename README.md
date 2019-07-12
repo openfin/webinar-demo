@@ -1,7 +1,7 @@
 # Webinar Demo
 
 ## Overview 
-This Webinar provides an overview of the OpenFin platform and a hands-on demonstration of key OpenFin APIs. Documentation for the OpenFin Runtime API can be found [here](https://openfin.co/developers/javascript-api/). Built on the OpenFin Runtime and [Reveal-js](http://lab.hakim.se/reveal-js/).
+This Webinar provides an overview of the OpenFin platform and a hands-on demonstration of key OpenFin APIs. Documentation for the OpenFin Runtime API can be found [here](https://developers.openfin.co/docs/javascript-api). Built on the OpenFin Runtime and [Reveal-js](http://lab.hakim.se/reveal-js/).
 
 ## Launch
 
